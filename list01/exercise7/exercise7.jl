@@ -13,12 +13,11 @@ end
 
 function printer(p,x)
 
-        d=f_derivative(x)
-        println(p," ",d)
+        println("DERIVATIVE : |DERIVATIVE(x)-DERIVATIVE(fl(X))| : 1+h")
         for i in 0:p
-                h=Float64(2.0)^(-i)
-                m=derivative(f,x,h)
-                println("p:"m)
+                h=(2.0)^(-i)
+                d=derivative(f,x,h)
+                println(d," : ",abs(d-f_derivative(1.0))," : ",(1.0+h))
 end
 end
 
