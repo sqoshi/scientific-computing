@@ -2,7 +2,7 @@
 Piotr Popis
 =#
 x=[2.718281828, (-3.141592654), 1.414213562,0.5772156649,0.3010299957]
-y=[486.2497,878366.9879, (-22.37492),4773714.647,0.000185049]
+y=[1486.2497,878366.9879, (-22.37492),4773714.647,0.000185049]
 
 """
 Function that takes given vectors x
@@ -10,11 +10,11 @@ and y floating type point and n as
 a limit that it should summs to
 """
 function alghoritm_ahead(FTP,n,x,y)
-        S=0
+        S=FTP(0.0)
     for i in 1:n
-        S+=FTP(x[i])*FTP(y[i])
+        S+=FTP(FTP(x[i])*FTP(y[i]))
     end
-    return S
+    return FTP(S)
 end
 
 #compute results for a)
