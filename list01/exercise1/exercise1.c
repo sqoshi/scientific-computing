@@ -6,7 +6,7 @@
 
 int main(){
    printf("Macheps Float32 = %.17g\n", FLT_EPSILON);
-   printf("Macheps Float64  = %17g\n", DBL_EPSILON);
+   printf("Macheps Float64  = %.17g\n", DBL_EPSILON);
 
    printf("Eta Float32 = %.17g\n", FLT_MIN);
    printf("Eta Float64 = %.17g\n", DBL_MIN);
