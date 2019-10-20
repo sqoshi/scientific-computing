@@ -17,8 +17,8 @@ function printer(p,x)
         for i in 0:p
                 h=(2.0)^(-i)
                 d=derivative(f,x,h)
-                println(d," : ",abs(d-f_derivative(1.0))," : ",(1.0+h))
+                println(i," : ",d," : ",abs(d-f_derivative(1.0))," : ",(1.0+h))
 end
 end
 
-printer(54.0,Float64(1.0))
+printer(54,Float64(1.0))
