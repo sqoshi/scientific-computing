@@ -19,5 +19,5 @@ function printer(FTP, func,fun)
     end
 end
 
-printer(Float32,f,g)
+
 printer(Float64,f,g)
