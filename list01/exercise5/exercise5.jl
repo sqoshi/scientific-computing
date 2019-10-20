@@ -26,8 +26,8 @@ println(alghoritm_ahead(Float32,5,x,y))
 """
 """
 function alghoritm_backward(FTP,n,x,y)
-    S=0
-    for i in n:1
+    S=FTP(0.0)
+    for i = n: -1 : 1;
         S+=FTP(x[i])*FTP(y[i])
     end
     return S
@@ -35,8 +35,8 @@ end
 
 #compute results for b)
 println("b)")
-println(alghoritm_ahead(Float64,5,x,y))
-println(alghoritm_ahead(Float32,5,x,y))
+println(alghoritm_backward(Float64,5,x,y))
+println(alghoritm_backward(Float32,5,x,y))
 
 
 """

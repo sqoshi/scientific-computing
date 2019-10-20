@@ -1,7 +1,7 @@
 #Piotr Popis
 
 function uniformity(δ)
-    for k in 1:5 #(((δ)^(-1))-1)
+    for k in 1:8 #(((δ)^(-1))-1)
         println(bitstring(Float64(1.0 + k*δ)))
     end
 end
