@@ -29,7 +29,7 @@ end
 Function that determines the MAX for each floating point type.
 """
 function determine_max(FPT)
-max = 1.0
+max = FPT(1.0)
 while !isinf(FPT(2.0*max))
     max*=2.0
 end
