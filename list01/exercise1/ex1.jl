@@ -43,6 +43,7 @@ println("FPT:  eps(FPT)  -  determine_macheps(FPT)")
 println("Float16: ",eps(Float16), " - ",determine_macheps(Float16))
 println("Float32: ",eps(Float32), " - ",determine_macheps(Float32))
 println("Float64: ",eps(Float64), " - ",determine_macheps(Float64))
+
 println("---------------------------------------")
 
 println("----------------eta--------------------")
@@ -50,6 +51,7 @@ println("FPT:  determine_eta(FPT) - nextfloat(FPT)")
 println("Float16: ",determine_eta(Float16)," - ",nextfloat(Float16(0.0)))
 println("Float32: ",determine_eta(Float32)," - ",nextfloat(Float32(0.0)))
 println("Float64: ",determine_eta(Float64)," - ",nextfloat(Float64(0.0)))
+println("Float64: ",bitstring(determine_eta(Float64))," - ",bitstring(floatmin(Float64)))
 println("---------------------------------------")
 
 println("----------------MAX--------------------")
