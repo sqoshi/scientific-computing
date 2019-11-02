@@ -33,7 +33,7 @@ max = FPT(1.0)
 while !isinf(FPT(2.0*max))
     max*=2.0
 end
-return FPT((2.0-eps(FPT))*max)
+return FPT((2.0-determine_macheps(FPT))*max)
 end
 
 
@@ -51,7 +51,7 @@ println("FPT:  determine_eta(FPT) - nextfloat(FPT)")
 println("Float16: ",determine_eta(Float16)," - ",nextfloat(Float16(0.0)))
 println("Float32: ",determine_eta(Float32)," - ",nextfloat(Float32(0.0)))
 println("Float64: ",determine_eta(Float64)," - ",nextfloat(Float64(0.0)))
-println("Float64: ",bitstring(determine_eta(Float64))," - ",bitstring(floatmin(Float64)))
+println("Float64: ",bitstring(nextfloat(Float64(0.0)))," ",bitstring(determine_eta(Float64))," - ",bitstring(floatmin(Float64)))
 println("---------------------------------------")
 
 println("----------------MAX--------------------")
