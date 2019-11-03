@@ -1,5 +1,5 @@
 using Plots
-in = range(30, stop=40, step=0.01)
+in = range(-10, stop=1000,step=0.01)
 
 function logharitm_e(x)
   return log(exp(1), x)
