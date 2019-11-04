@@ -1,3 +1,4 @@
+#Piotr Popis
 using Plots
 in = range(-10, stop=1000,step=0.01)
 
