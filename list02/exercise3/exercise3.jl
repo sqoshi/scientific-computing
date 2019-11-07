@@ -20,5 +20,5 @@ function matcond(n::Int,c::Float64)
         end
     end
     (U,S,V)=svd(rand(n,n))
-    return U*diagm(range(1.0,stop=c,length=n))*V'
+    return U*diagm(linspace(1.0,c,n))*V'
 end
