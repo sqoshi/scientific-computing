@@ -1,5 +1,5 @@
 using LinearAlgebra
-
+include("exercise3.jl")
 function realtive_error_calculator(result, x)
     return norm(result - x) / norm(x)
 end
