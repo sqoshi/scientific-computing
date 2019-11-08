@@ -26,4 +26,5 @@ println("-----------------------------------------------------------------------
 for i in 1:20
       println(i,",",rootsP[i],",",abs(i-rootsP[i]),",",abs(polyval(P,rootsP[i])),",",abs(polyval(p,rootsP[i])))
 end
-i want to see the cahnges
+println(bitstring(Float64(-210.0)))
+println(bitstring(Float64(-210.0-2^(-23))))
