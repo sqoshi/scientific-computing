@@ -17,12 +17,12 @@ function repeat_func(times)
         x[6]=recursion(x[6],c[6])
         x[7]=recursion(x[7],c[7])
         println(i," : ",x[1]," : ",x[2]," : ",x[3]," : ",x[4]," : ",x[5]," : ",x[6]," : ",x[7])
-        a[i]=x[7]
+        a[i]=x[5]
     end
     print(a)
     b = 1:40; y = a;
     plot(b,y,framestyle = :origin)
-    png("/home/piotr/Documents/scientific-computing/list02/exercise6/plots/plot7.png")
+    png("/home/piotr/Documents/scientific-computing/list02/exercise6/plots/plot5.png")
 
 end
 println("----------------------------------------------------")
