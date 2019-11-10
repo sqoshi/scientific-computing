@@ -1,3 +1,7 @@
+#Piotr Popis
+"""
+calculate roots of given coeffs but with change in one of them/
+"""
 Pkg.add("Polynomials")
 using Polynomials
 precision=Float64

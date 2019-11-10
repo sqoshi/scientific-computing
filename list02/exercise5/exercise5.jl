@@ -1,5 +1,6 @@
 #Piotr Popis
 """
+calculate population growth.
 """
 function population_growth(r,p,precision)
     p=precision(p)
@@ -10,6 +11,7 @@ function population_growth(r,p,precision)
     end
 end
 """
+calculate population growth with trunc.
 """
 function population_growth_round(r,p,precision)
     p=precision(p)
@@ -22,7 +24,9 @@ function population_growth_round(r,p,precision)
         print(p)
     end
 end
-
+"""
+prints results in a columns
+"""
 function first_point_test(r,p,precision1,precision2)
     p1=precision1(p)
     p2=precision1(p)

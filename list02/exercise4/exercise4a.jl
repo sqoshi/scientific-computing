@@ -1,3 +1,7 @@
+#Piotr Popis
+"""
+calculates roots of fiven coeffs
+"""
 Pkg.add("Polynomials")
 using Polynomials
 precision=Float64

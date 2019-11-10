@@ -1,9 +1,14 @@
 using LinearAlgebra
 include("exercise3.jl")
+"""
+funciton calculate realtive error for result and x.
+"""
 function realtive_error_calculator(result, x)
     return norm(result - x) / norm(x)
 end
-
+"""
+function print anand calculate gaus and inversion method for all x.
+"""
 function compute_Results(precision,A,matrixSize);
     x = ones(precision,matrixSize)
     b = A*x

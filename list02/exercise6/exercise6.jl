@@ -1,9 +1,14 @@
 #Piotr Popis
 using Plots
+"""
+Recursive returning value. for given f.
+"""
 function recursion(x,c)
     return (x^2 + c)
 end
-
+"""
+function calculate all values and saveing it in array to make plots
+"""
 function repeat_func(times)
     c = Float64[-2,-2,-2,-1,-1,-1,-1]
     x = Float64[1,2,1.99999999999999,1,-1,0.75,0.25]
