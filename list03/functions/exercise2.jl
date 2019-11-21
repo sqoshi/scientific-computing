@@ -15,12 +15,3 @@ end
 x0=x
 end
 end
-
-function linear_function(x)
-return x*x-5x
-end
-
-function derrivative(x)
-return 2x-5
-end
-println(mstycznych(linear_function,derrivative,18.0,(10.0)^(-16), (10.0)^(-16),20))
