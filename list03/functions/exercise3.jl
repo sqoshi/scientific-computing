@@ -10,10 +10,11 @@ function msiecznych(f, a::Float64, b::Float64, delta::Float64, epsilon::Float64,
         s=(b-a)/(fb-fa)
         b=a
         fb=fa
-        a=a-fa*s
+        a=a-(fa*s)
         fa=f(a)
         if (abs(b-a)<delta || abs(fa)<epsilon)
-            return k,a,fa,0
+            return a,fa,k,err
         end
     end
+       return NaN, NaN, NaN, 1
 end
