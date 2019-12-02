@@ -33,7 +33,7 @@ Addytywnym utrudnieniem jest restrykcja użycia tablicy dwuwymiarowej, czyli mac
 \subsection{Rozwiązanie}
 Ilorazem różnicowym n- tego rzędu funkcji $f:X\longrightarrow Y$ w punktach $x_0, ..., x_n \epsilon X$ nazywamy funkcję:\\
 \begin{center}
-$f(x_0,...,x_n) := \Sigma^n_i\dfrac{f(x_i)}{\Pi^n_j(x_i-x_j)}$
+$$f(x_0,...,x_n) := \sum^n_i\dfrac{f(x_i)}{\prod^n_j(x_i-x_j)}$$
 \end{center}
 W celu realizacji zadania, czyli uniknięcia wykorzystania macierzy skorzystamy z zależności rekurencyjnej:\\
 1.$i=0$\\
@@ -65,7 +65,7 @@ $a[2]=a_1,...,a[n]
 \subsection{Rozwiązanie}
 W celu wyznaczenia wartości wielomianu interpolacyjnego stopnia n w postaci Newton'a $N_n(x)$ w punkcie $x=t$ zaimplementowano uogólniony schemat Hornera.\\
 \begin{center}
-$N_n(x)=\Sigma^k_{i=0}c_i\Pi^{i-1}_{j=0}(x-x_j)$
+$$N_n(x)=\sum^k_{i=0}c_i\prod^{i-1}_{j=0}(x-x_j)$$
 \end{center}
 Wartość wielomianu przyjmowana w danym punkcie t obliczamy, kosztystając z:\\
 \begin{center}$w(x)=(x-t)\cdot q(z)\cdot w(t)$\end{center}
@@ -95,7 +95,7 @@ $a[2]=a_...,a[n]=a_{n−1},a[n+1]=a_n$
 Korzystając z faktu, iż współczynnik sąsiadujący z $x^k$ to f[$x_0,x_1,...,x_k$], czyli $c_n$ przy najwyżej potędze wielomianu w postaci Newton'a. Ponownie wykorzystujemy ugólnienie schematu Hornera, a następnie z wzoru na postać Newton'a podanego na  wykładzie: \\
 \begin{center}
 \bigskip
-$p(x) = \Sigma^n_{k=0} f[x_0,...,x_k] \Pi^{k-1}_{j=0}(x-x_j)$\\
+$$p(x) = \sum_{k=0}^n f[x_0,...,x_k] \prod^{k-1}_{j=0}(x-x_j)$$\\
 \bigskip
 \end{center}
 Wielomian posiada współczynniki przy odpowiadających im potęgach $a_0,a_1,...,a_k$, gdzie współczynnik $a_k$ leży przy największej potędze. Dokonujemy mnożenia danego wielomianu począwszy od jego ostatnich potęg. W każdym kroku mnożemy nasz  wielomian przez dwumian $(x-x_{n-1})$. Ostateczny wielomian wynikowy będzie zaprezentwoany jako prosty wektor współczynników analagoiczny do wektora wejściowego. W wyniku wykonanych mnożeń otrzymujemy postać wynikową wielomianu, którego współczynniki wynoszą kolejno $a_k,a_{k-1},..,a_0$. Aby wynik był postaci $a_0+a_1x+a_x^2+...+a_nx^n$ musimy dokonać również przestawienia. Całkowita złożoność obliczeniowa wynosi $\theta(n^2)$, ponieważ złożoność obliczeniowa schmeatu Horner;a wynosi $\theta(n)$ oraz mnożenie wielomianów również $\theta(n)$
@@ -180,9 +180,10 @@ W celu rozwiązania zadania należy przetestować zaimplementowaną w Zadaniu 4 
 \includegraphics[scale=.4]{PLOT:-5.0|5.0|10.png}
 \includegraphics[scale=.4]{PLOT:-5.0|5.0|15.png}
 \end{figure}
+\newpage
 \subsection{Wnioski}
 \paragraph{Zjawisko Runge'go}
 Wiąże się z zachowaniem  samych wielomianów bazowych: wielomiany oparte na węzłach równoodległych silnie oscylują w pobliżu krańców przedziału.\\
-
+Na podstawie powyższych wyników jesteśmy w stanie zauważyć, iż wartości funkcji dla danych argumentów nie pokrywają się z wartościami wielomianów interpolacyjnch. Dla funkcji $|x|$ dziesie się tak, bo funkcja nie jest różniczkowalna. Natomiast funkcja $\dfrac{1}{1+x^2}$ jest przykładem powyżej wspomnianego zjawiska Runge'go. Zjawisko to występuje w przypadku pogorszenia jakości interpolacji wielomianowej pomimo zwiększenia ilości węzłow wielomianu interpolacyjnego. Przy zwiększaniu wartości n wykres początkowo sprawia złudzenie zmierzania do poprawnego kształtu, by po chwili całkowicie odejść od poprawności. Zjawisko jest popularne dla interpolacji za pomocą wielomianów wysokich stopni przy zastowaniu równoodległych węzłów. Występuje również w przypadku funkcji nieciągłej. W celu uniknięcia takiej sytuacji należy zastosowac interpolację z węzłami coraz gęściej upakowanymi na krańcach przedziału interpolacji.( Dobrym przykładem są wspomniane na stronie MIMUW węzły Czebyszewa, dla których wraz ze wzrostem sropnia wielomianu maleje błąd maksymalny aproksymacji funkcji). Wielomiany wysokiego stopnia nie są odpowiednim wyborem dla interpolacji dla równo oddalonych węzłów.
 \end{flushleft}
 \end{document}
