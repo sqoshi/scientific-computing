@@ -1,9 +1,11 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[left=12mm,right=12mm,top=0.5in,bottom=0.5in]{geometry}
+\usepackage[left=12mm,
+right=12mm,top=0.5in,
+bottom=1.5in]{geometry}
 \usepackage{mathtools}
 \usepackage{cancel}
-	
+\DeclareUnicodeCharacter{2212}{-}
 \begin{document}
 \title{Zadanie 7 Lista 4}
 \author{Piotr Popis, 245162}
@@ -11,14 +13,54 @@
 \centering
 
 \begin{flushleft}
-\section{Treść}
-Czy język tych słów nad alfabetem \{1,2,3,4\}, które mają tyle samo symboli 1 co 2 i tyle samo symboli 3 co 4 jest bezkontekstowy?
+\section{Zadanie 1}
+\subsection{Opis problemu}
+Celem zadania jest implementacja funkcji obliczającej ilorazy różnicowe. Danymi wejściowymi są:
+\begin{center}
+x- wektor długości n+ 1 zawierający węzły $x_0, . . . , x_n$  $x[1]=x_0,...,x[n+1]=x_n$\\
+f– wektor długości n+1 zawierający wartości interpolowanejfunkcji w węzłach $f(x_0), . . . , f(x_n)$\\
+\begin{flushleft}
+Wyniki:
 \end{flushleft}
+fx- wektor długości $n+1$ zawierający obliczone ilorazy różnicowe\\ $fx[1]=f[x_0]$,\\$fx[2]=f[x_0, x_1],...,fx[n]=f[x_0, . . . , x_{n−1}],fx[n+1]=f[x_0, . . . , x_n].$
+\begin{flushleft}
+Addytywnym utrudnieniem jest restrykcja użycia tablicy dwuwymiarowej, czyli macierzy.
+\end{flushleft}
+\end{center}
+\subsection{Rozwiązanie}
+Ilorazem różnicowym n- tego rzędu funkcji $f:X\longrightarrow Y$ w punktach $x_0, ..., x_n \epsilon X$ nazywamy funkcję:\\
+\begin{center}
+$f(x_0,...,x_n) := \Sigma^n_i\dfrac{f(x_i)}{\Pi^n_j(x_i-x_j)}$
+\end{center}
+W celu realizacji zadania, czyli uniknięcia wykorzystania macierzy skorzystamy z zależności rekurencyjnej:\\
+1.$i=0$\\
+\quad$f[x_0]=f(x_0)$\\
+2.$i=1$\\
+\quad$f[x_0,x_1]=\dfrac{f(x_1)-f(x_0)}{x_1-x_0}$\\
+3.$i=n$\\
+\quad$f[x_0,...,x_n]=
+\dfrac{f(x_1,...,x_n)-f(x_0,...,x_{n-1})}{x_n-x_0}$\\
+Znając węzły $x_n$ i wartości funkcji f($x_n$), można utworzyć dwuwymiarową tablicę ilorazów różnicowych. Jednak algorytm można zoopytmalizować, ponieważ wystarczy użyć tablicy jednowymiarowej $w$ do zapamiętywania dwóch poprzednich wartości(tablicę aktualizujemy od dołu do góry i od lewej do prawej). Pozostałe wartości tylko i wyłącznie spowalniają nasz algorytm. Początkowymi wartości są $w_i$ są odpowiadające im f[$x_i$]. W kolejnych krokach aktualizowane jest jedno miejsce mniej.
+\newpage
+\section{Zadanie 2}
+\subsection{Opis problemu}
+Napisać funkcję obliczającą wartość wielomianu interpolacyjnego stopnia n w postaci Newtona $N_n(x)$ w punkcie x=t za pomocą algorytmu Hornera w czasie $\theta(n)$. Dane wejściowe:\\
+\begin{center}
+x– wektor długości n+ 1 zawierający węzły $x_0, ...,x_n$\\$x[1]=x0,...,x[n+1]=x_n$\\
+fx– wektor długości n+ 1 zawierający ilorazy  różnicowe \\$fx[1]=f[x_0]$,\\
+$fx[2]=f[x_0, x_1],...,fx[n]=f[x_0, . . . , x_{n−1}],fx[n+1]=f[x_0, . . . , x_n]$
+\end{center}
+\begin{flushleft}
+Wyniki:
+\begin{center}
+a – wektor długości n+ 1 zawierający obliczone współczynniki postaci naturalnej\\
+$a[1]=a_0$,\\
+$a[2]=a_1,...,a[n]
+=a_{n−1},a[n+1]=a_n$.\\
+\end{center}
+\end{flushleft}
+\subsection{Rozwiązanie}
+W celu wyznaczenia wartości wielomianu interpolacyjnego stopnia n w postaci Newton'a $N_n(x)$ w punkcie $x=t$ zaimplementowano uogólniony schemat Hornera.\\
 
-\section{Rozwiązanie}
-Załóżmy, że język L jest bezkontekstowy.
-Wtedy skorzystamy z lematu o pompowaniu:\\
-Istnieje stała $n$ taka, że jeśli $z$ $\epsilon$ $ L$ $\wedge$ $| z |$ $\geq$ $n$  oraz \\
-
-
+\end{flushleft}
 \end{document}
