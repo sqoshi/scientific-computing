@@ -7,7 +7,7 @@ bottom=1.5in]{geometry}
 \usepackage{cancel}
 \usepackage{graphicx}
 \usepackage{grffile}
-\graphicspath{{/home/piotr/Documents/scientific-computing/list04/exercise5/plots/}}
+\graphicspath{{/home/piotr/Documents/scientific-computing/list04/exercise5/plots/}{/home/piotr/Documents/scientific-computing/list04/exercise6/plots/}}
 \DeclareUnicodeCharacter{2212}{-}
 \begin{document}
 \title{Zadanie 7 Lista 4}
@@ -136,7 +136,7 @@ $h=\dfrac{b-a}{n}$.\\
 \subsubsection{a) $ e^x,[0,1],n= 5,10,15,$}
 \subsubsection{b) $ x^2sin(x),[−1,1],n= 5,10,15$}
 \subsection{Rozwiązanie}
-W celu rozwiązania zadania należy przetestować zaimplementowaną w Zadaniu 4 funkcję i narysować wykresy dla zadanych przykładów
+W celu rozwiązania zadania należy przetestować zaimplementowaną w Zadaniu 4 funkcję i narysować wykresy dla zadanych przykładów.
 \subsection{Wyniki}
 \subsubsection{a) $ e^x,[0,1],n= 5,10,15,$}
 \begin{figure}[htbp]
@@ -155,8 +155,34 @@ W celu rozwiązania zadania należy przetestować zaimplementowaną w Zadaniu 4 
 \end{figure}
 
 \subsection{Wnioski}
-xxxxxxxxxx
+Jak widać w sekcji wyniki dla zadanych przykładów a i b wykresu wielomianów interpolacyjnych oraz interpolowanych funkcji są niemalże identyczne, nakładają się.\\ Wykorzystanie równoogległych węzłów przy interpoloacji dało niemal perfekcyjne wyniki. Powstałe wielomiany interpolacyjne praktycznie idealnie odwzorowały przebieg funkcji, co więcej zwiększenie stopnia wielomianu zwiększa jego podobieństwo do oryginalnej funkcji.
 
+\newpage
+\section{Zadanie 6}
+\subsection{Opis Problemu}
+\subsubsection{a) $|x|,[−1,1],n= 5,10,15$}
+\subsubsection{b) $\dfrac{1}{1+x^2},[−5,5],n= 5,10,15 $ (zjawisko  Runge’go)}
+\subsection{Rozwiązanie}
+W celu rozwiązania zadania należy przetestować zaimplementowaną w Zadaniu 4 funkcję i narysować wykresy dla zadanych przykładów. Obserwacja Zjawiska Rozbieżności.
+\subsection{Wyniki}
+\subsubsection{a) $|x|,[−1,1],n= 5,10,15$}
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=.4]{PLOT:-1.0|1.0|5.png}
+\includegraphics[scale=.4]{PLOT:-1.0|1.0|10.png}
+\includegraphics[scale=.4]{PLOT:-1.0|1.0|15.png}
+\end{figure}
+\newpage
+\subsubsection{b) $\dfrac{1}{1+x^2},[−5,5],n= 5,10,15 $ (zjawisko  Runge’go)}
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=.4]{PLOT:-5.0|5.0|5.png}
+\includegraphics[scale=.4]{PLOT:-5.0|5.0|10.png}
+\includegraphics[scale=.4]{PLOT:-5.0|5.0|15.png}
+\end{figure}
+\subsection{Wnioski}
+\paragraph{Zjawisko Runge'go}
+Wiąże się z zachowaniem  samych wielomianów bazowych: wielomiany oparte na węzłach równoodległych silnie oscylują w pobliżu krańców przedziału.\\
 
 \end{flushleft}
 \end{document}

@@ -92,5 +92,5 @@ function rysujNnfx(f,a::Float64,b::Float64,n::Int)
 
   plot(range(a, stop=b, length=closeness), functionResults, color ="blue", label = "functionResults")
   plot!(range(a, stop=b, length=closeness), interpResults, color ="red", label="interpResults")
-  savefig("/home/piotr/Documents/scientific-computing/list04/exercise5/plots/PLOT:$a-$b-$n.png")
+  savefig("/home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:$a|$b|$n.png")
 end

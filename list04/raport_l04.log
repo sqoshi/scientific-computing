@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  7 DEC 2019 23:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  8 DEC 2019 00:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,12 +357,74 @@ cise5/plots/PLOT:-1.0-1.0-15.png  used on input line 154.
  [6 </home/piotr/Documents/scientific-computing/list04/exercise5/plots/PLOT:-1.
 0-1.0-5.png> </home/piotr/Documents/scientific-computing/list04/exercise5/plots
 /PLOT:-1.0-1.0-10.png> </home/piotr/Documents/scientific-computing/list04/exerc
-ise5/plots/PLOT:-1.0-1.0-15.png>] (./raport_l04.aux) ) 
+ise5/plots/PLOT:-1.0-1.0-15.png>]
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.0|1.
+0|5.png, id=39, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1
+.0|1.0|5.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.
+0|1.0|5.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-1.0|1.0|5.png  used on input line 171.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.0|1.
+0|10.png, id=40, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1
+.0|1.0|10.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.
+0|1.0|10.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-1.0|1.0|10.png  used on input line 172.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.0|1.
+0|15.png, id=41, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1
+.0|1.0|15.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.
+0|1.0|15.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-1.0|1.0|15.png  used on input line 173.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+ [7 </home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-1.
+0|1.0|5.png> </home/piotr/Documents/scientific-computing/list04/exercise6/plots
+/PLOT:-1.0|1.0|10.png> </home/piotr/Documents/scientific-computing/list04/exerc
+ise6/plots/PLOT:-1.0|1.0|15.png>]
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.0|5.
+0|5.png, id=46, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5
+.0|5.0|5.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.
+0|5.0|5.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-5.0|5.0|5.png  used on input line 179.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.0|5.
+0|10.png, id=47, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5
+.0|5.0|10.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.
+0|5.0|10.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-5.0|5.0|10.png  used on input line 180.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+</home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.0|5.
+0|15.png, id=48, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5
+.0|5.0|15.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.
+0|5.0|15.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list04/exer
+cise6/plots/PLOT:-5.0|5.0|15.png  used on input line 181.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+ [8 </home/piotr/Documents/scientific-computing/list04/exercise6/plots/PLOT:-5.
+0|5.0|5.png> </home/piotr/Documents/scientific-computing/list04/exercise6/plots
+/PLOT:-5.0|5.0|10.png> </home/piotr/Documents/scientific-computing/list04/exerc
+ise6/plots/PLOT:-5.0|5.0|15.png>] (./raport_l04.aux) ) 
 Here is how much of TeX's memory you used:
- 3418 strings out of 494443
- 50074 string characters out of 6174711
- 122370 words of memory out of 5000000
- 7050 multiletter control sequences out of 15000+600000
+ 3451 strings out of 494443
+ 52451 string characters out of 6174711
+ 122438 words of memory out of 5000000
+ 7083 multiletter control sequences out of 15000+600000
  13593 words of font info for 37 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
  36i,6n,25p,858b,308s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -379,10 +441,10 @@ onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy8.pfb>
-Output written on raport_l04.pdf (6 pages, 177107 bytes).
+Output written on raport_l04.pdf (8 pages, 308560 bytes).
 PDF statistics:
- 224 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 258 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 
