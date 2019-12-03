@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[left=12mm,
-right=12mm,top=0.5in,
+right=12mm,top=1.5in,
 bottom=1.5in]{geometry}
 \usepackage{mathtools}
 \usepackage{cancel}
@@ -92,7 +92,26 @@ Korzystając z faktu, iż współczynnik sąsiadujący z $x^k$ to f[$x_0,x_1,...
 $p(x) = \Sigma^n_{k=0} f[x_0,...,x_k] \Pi^{k-1}_{j=0}(x-x_j)$\\
 \end{center}
 Wielomian posiada współczynniki przy odpowiadających im potęgach $a_0,a_1,...,a_k$, gdzie współczynnik $a_k$ leży przy największej potędze. Dokonujemy mnożenia danego wielomianu począwszy od jego ostatnich potęg. W każdym kroku mnożemy nasz  wielomian przez dwumian $(x-x_{n-1})$. Ostateczny wielomian wynikowy będzie zaprezentwoany jako prosty wektor współczynników analagoiczny do wektora wejściowego. W wyniku wykonanych mnożeń otrzymujemy postać wynikową wielomianu, którego współczynniki wynoszą kolejno $a_k,a_{k-1},..,a_0$. Aby wynik był postaci $a_0+a_1x+a_x^2+...+a_nx^n$ musimy dokonać również przestawienia. Całkowita złożoność obliczeniowa wynosi $\theta(n^2)$, ponieważ złożoność obliczeniowa schmeatu Horner;a wynosi $\theta(n)$ oraz mnożenie wielomianów również $\theta(n)$
+\newpage
+\section{Zadanie 4}
+\subsection{Opis Problemu}
+Celem zadania jest utworzenie funkcji, która zinterpoluje zadaną funkcję f(x) w przedziale [a,b] za pomocą wielominau interpolacyjnego stopnia n w postaci Newton'a, a następnie narysuje wielomian interpolacyjny i funkcję interpolową. Wykorzystać Plots lub PyPlot lub Gadfly do narysowania grafów.\\
+\quad W interpolacji użyć węzłów równoodległych, \\
+\bigskip
+\quad\quad$x_k=a+k\cdot h$,\\
+\quad\quad $h =\dfrac{b-a}{n}, k = 0,1...,n$
+W zadaniu należy nie wyznaczać jawnej postaci wielomianu interpolacyjnego. Należy skorzystać z funkcji zaimplementowanych w zadaniu 1 oraz zadaniu 2 odpowiednio iloryRzonicowe i warNewton. Dane wejściowe:\\
+\begin{center}
+f– funkcja f(x) zadana jako anonimowa funkcja,\\
+a,b– przedział interpolacji, 
+\\n– stopień wielomianu interpolacyjnego
+\begin{flushleft}
+Wyniki:
+\end{flushleft}
+-funkcja rysuje wielomian interpolacyjny i interpolowaną funkcję w przedziale[a, b]
+\end{center}
 
+\subsection{Rozwiązanie}
 
 \end{flushleft}
 \end{document}
