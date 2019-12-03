@@ -5,6 +5,9 @@ export ilorazyRoznicowe
 export warNewton
 export rysujNnfx
 export naturalna
+gr()
+ENV["GRDIR"]=""
+Pkg.build("GR")
 """
 Oblicza ilorazy roznicowe na podsatwie podanego wektora wezlow oraz wartosci funkcji.
 n - dlugosc wektora f
@@ -50,12 +53,12 @@ function naturalna(a::Vector{Float64}, fdiff::Vector{Float64})
     coeff[n] = fdiff[n]
 
     for i = n-1:-1:1
-        # TODO: CHANGE
+
         p = coeff[i+1] * a[i]
         coeff[i] = fdiff[i] - p
 
         for k = i+1:n-1
-            # TODO: CHANGE
+
             p = coeff[k+1] * a[i]
             coeff[k] = coeff[k] - p
         end
@@ -68,8 +71,8 @@ Rysuje wielomian interpolacyjne i interpolowa funkcje w przedziale [a, b]
 """
 function rysujNnfx(f,a::Float64,b::Float64,n::Int)
   h = (b - a) / n;
-  x = Array(Float64, n + 1);
-  y = Array(Float64, n + 1);
+  x = Array{Float64}(undef, n + 1);
+  y = Array{Float64}(undef, n + 1);
 
   for i=1 : n + 1
     x[i] = a + (i-1) * h;
@@ -78,8 +81,8 @@ function rysujNnfx(f,a::Float64,b::Float64,n::Int)
 
   fx = ilorazyRoznicowe(x, y);
   closeness = 101;
-  functionResults = Array(Float64, closeness);
-  interpResults = Array(Float64, closeness);
+  functionResults =Array{Float64}(undef,closeness);
+  interpResults = Array{Float64}(undef,closeness);
   h1 = (b - a) / (closeness-1);
   for i=1 : closeness
     t = a + (i-1) * h1;
@@ -87,6 +90,7 @@ function rysujNnfx(f,a::Float64,b::Float64,n::Int)
     interpResults[i] = warNewton(x, fx , t);
   end
 
-  plot(linspace(a, b, closeness), functionResults, color ="blue", label = "functionResults")
-  plot!(linspace(a, b, closeness), interpResults, color ="red", label="interpResults")
+  plot(range(a, stop=b, length=closeness), functionResults, color ="blue", label = "functionResults")
+  plot!(range(a, stop=b, length=closeness), interpResults, color ="red", label="interpResults")
+  savefig("/home/piotr/Documents/scientific-computing/list04/exercise5/plots/PLOT:$a-$b-$n.png")
 end
