@@ -41,6 +41,24 @@ function warNewton(x::Vector{Float64}, fx::Vector{Float64}, t::Float64)
 
    return nt
 end
+"""
+Oblicza wartość wspolczynnikow postaci naturalnej wielomianu zadanego w postaci Newton'a
+"""
+function naturalna(x::Vector{Float64}, fx::Vector{Float64})
+
+    N = length(x)
+    a = Vector{Float64}(N)
+
+    a[N] = fx[N]
+    for k = N-1 : -1 : 1
+        a[k] = fx[k] - [k + 1] * x[k]
+        for i = k+1 : N-1
+            a[i] = a[i] - a[i + 1] * x[k]
+        end
+    end
+
+    return a
+end
 
 
 

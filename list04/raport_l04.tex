@@ -61,6 +61,38 @@ $a[2]=a_1,...,a[n]
 \end{flushleft}
 \subsection{Rozwiązanie}
 W celu wyznaczenia wartości wielomianu interpolacyjnego stopnia n w postaci Newton'a $N_n(x)$ w punkcie $x=t$ zaimplementowano uogólniony schemat Hornera.\\
+\begin{center}
+$N_n(x)=\Sigma^k_{i=0}c_i\Pi^{i-1}_{j=0}(x-x_j)$
+\end{center}
+Wartość wielomianu przyjmowana w danym punkcie t obliczamy, kosztystając z:\\
+\begin{center}$w(x)=(x-t)\cdot q(z)\cdot w(t)$\end{center}
+Można też śmiało stwierdzić, iż metoda Newton'a jest trudniejsza w impementacji niż np metoda Lagrange'a i wymaga większej ilości oddzielnych kroków. Jest jednak znacznie lepiej uwarunkowana nmerycznie.W metodzie najpierw wzynaczane są odpowiednie ilorazy różnicowe, a dopiero później z ich użyciem- interpolowa funkcja.\\
+Algorytm zaczynamy od przypisania do zmiennej nt konkretnego wektora ilorazów różnicowych. W kolejnych krokach od n-1 zwiększamy wartość wektora pomnożoną przez różnicę wartości węzła i weilomianu t. Otrzymujemy:\\
+\begin{center}
+$nt=f_x(i)+nt\cdot (t-\omega[i])$, gdzie $f_x$ jest wektorem ilorazów różnicowych.\\
+\end{center}
+Algorytm działa w czasie liniowym.
+\newpage
+\section{Zadanie 3}
+\subsection{Opis Problemu}
+Celem zadania jest kreacja funkcji obliczającej współczynniki postaci naturalnej wielomianu interpolacyjnego znając współczynniki wielomianu interpolacyjnnego w postaci Newton'a $c_0$ = f[$x_0$], $c_1$ = $f[x_0,x_1]$, $c_2$= $f[x_0, x_1, x_2],. . .,cn=f[x_0, . . . , x_n]$ (ilorazy różnicowe) oraz węzły $ x_0, x_2, . . . , x_n $ działającą w czasie $\theta(n^2)$. Dane wejściowe:\\
+\begin{center}
+x– wektor długości n+ 1 zawierający węzły $x_0, . . . , x_n x[1]=x_0,...,x[n+1]=x_n$ \\
+fx– wektor długości n+ 1 zawierający ilorazy różnicowe $fx[1]=f[x_0],fx[2]=f[x_0, x_1],...,fx[n]=f[x0, . . . , x_{n−1}],fx[n+1]=f[x0, . . . , x_n]$\\
+\begin{flushleft}
+Wyniki:\\
+\end{flushleft}
+a– wektor długości n+ 1 zawierający obliczone współczynniki postaci naturalnej\\
+$a[1]=a_0$,\\
+$a[2]=a_...,a[n]=a_{n−1},a[n+1]=a_n$
+\end{center}
+\subsection{Rozwiązanie}
+Korzystając z faktu, iż współczynnik sąsiadujący z $x^k$ to f[$x_0,x_1,...,x_k$], czyli $c_n$ przy najwyżej potędze wielomianu w postaci Newton'a. Ponownie wykorzystujemy ugólnienie schematu Hornera, a następnie z wzoru na postać Newton'a podanego na  wykładzie: \\
+\begin{center}
+$p(x) = \Sigma^n_{k=0} f[x_0,...,x_k] \Pi^{k-1}_{j=0}(x-x_j)$\\
+\end{center}
+Wielomian posiada współczynniki przy odpowiadających im potęgach $a_0,a_1,...,a_k$, gdzie współczynnik $a_k$ leży przy największej potędze. Dokonujemy mnożenia danego wielomianu począwszy od jego ostatnich potęg. W każdym kroku mnożemy nasz  wielomian przez dwumian $(x-x_{n-1})$. Ostateczny wielomian wynikowy będzie zaprezentwoany jako prosty wektor współczynników analagoiczny do wektora wejściowego. W wyniku wykonanych mnożeń otrzymujemy postać wynikową wielomianu, którego współczynniki wynoszą kolejno $a_k,a_{k-1},..,a_0$. Aby wynik był postaci $a_0+a_1x+a_x^2+...+a_nx^n$ musimy dokonać również przestawienia. Całkowita złożoność obliczeniowa wynosi $\theta(n^2)$, ponieważ złożoność obliczeniowa schmeatu Horner;a wynosi $\theta(n)$ oraz mnożenie wielomianów również $\theta(n)$
+
 
 \end{flushleft}
 \end{document}
