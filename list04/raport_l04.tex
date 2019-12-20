@@ -10,14 +10,17 @@ bottom=1.5in]{geometry}
 \graphicspath{{/home/piotr/Documents/scientific-computing/list04/exercise5/plots/}{/home/piotr/Documents/scientific-computing/list04/exercise6/plots/}}
 \DeclareUnicodeCharacter{2212}{-}
 \begin{document}
-\title{Zadanie 7 Lista 4}
-\author{Piotr Popis, 245162}
+\title{{Obliczenia Naukowe}}
+\author{Laboratorium Lista Nr 5\\Piotr Popis\\ 245162}
+\date{6 grudzień 2019}
 \maketitle
 \centering
 
 \begin{flushleft}
 \section{Zadanie 1}
+\bigskip
 \subsection{Opis problemu}
+\bigskip
 Celem zadania jest implementacja funkcji obliczającej ilorazy różnicowe. Danymi wejściowymi są:
 \begin{center}
 x- wektor długości n+ 1 zawierający węzły $x_0, . . . , x_n$  $x[1]=x_0,...,x[n+1]=x_n$\\
@@ -33,17 +36,34 @@ Addytywnym utrudnieniem jest restrykcja użycia tablicy dwuwymiarowej, czyli mac
 \subsection{Rozwiązanie}
 Ilorazem różnicowym n- tego rzędu funkcji $f:X\longrightarrow Y$ w punktach $x_0, ..., x_n \epsilon X$ nazywamy funkcję:\\
 \begin{center}
-$$f(x_0,...,x_n) := \sum^n_i\dfrac{f(x_i)}{\prod^n_j(x_i-x_j)}$$
+$$f(x_0,...,x_n) := \sum^n_i\dfrac{f(x_i)}{\prod_j^n (x_i-x_j)}$$
 \end{center}
+\newpage
+\bigskip
 W celu realizacji zadania, czyli uniknięcia wykorzystania macierzy skorzystamy z zależności rekurencyjnej:\\
+\bigskip
 1.$i=0$\\
 \quad$f[x_0]=f(x_0)$\\
+\bigskip
 2.$i=1$\\
 \quad$f[x_0,x_1]=\dfrac{f(x_1)-f(x_0)}{x_1-x_0}$\\
+\bigskip
 3.$i=n$\\
 \quad$f[x_0,...,x_n]=
 \dfrac{f(x_1,...,x_n)-f(x_0,...,x_{n-1})}{x_n-x_0}$\\
-Znając węzły $x_n$ i wartości funkcji f($x_n$), można utworzyć dwuwymiarową tablicę ilorazów różnicowych. Jednak algorytm można zoopytmalizować, ponieważ wystarczy użyć tablicy jednowymiarowej $w$ do zapamiętywania dwóch poprzednich wartości(tablicę aktualizujemy od dołu do góry i od lewej do prawej). Pozostałe wartości tylko i wyłącznie spowalniają nasz algorytm. Początkowymi wartości są $w_i$ są odpowiadające im f[$x_i$]. W kolejnych krokach aktualizowane jest jedno miejsce mniej.
+\bigskip
+Znając węzły $x_n$ i wartości funkcji f($x_n$), można utworzyć dwuwymiarową tablicę ilorazów różnicowych. Jednak prowadzi to do źle uwarunkowanej macierzy Vanermode'a. Algorytm natomiast można zoopytmalizować, ponieważ wystarczy użyć tablicy jednowymiarowej $w$ do zapamiętywania dwóch poprzednich wartości(tablicę aktualizujemy od góry do dołu i od lewej do prawej). Pozostałe wartości są po prostu niepotrzebne. Początkowymi wartości $w_i$ są odpowiadające im f[$x_i$]. Ostatecznie ilorazem różnicowym opartym na węzłach $x_0,...,x_n$ będziemy nazywali wielkość $f[x_0,...,x_n]$.\\
+\bigskip
+Postać Newton'a wzoru interpolacyjnego\\
+\bigskip
+$$p(x)=\sum^n_{k=0}c_kq_k(x)=\sum^n_{k=0}f[x_0,...,x_k]\prod^{k-1}_{j=0}(x-x_j)$$\\
+\bigskip
+\quad gdzie $c_0$ zależy od f($x_0$), \\
+\begin{center}
+.\\.\\.\\
+\end{center}
+\quad $c_n$ zależy od f w punktach $x_0,...,x_n $\\
+\bigskip
 \newpage
 \section{Zadanie 2}
 \subsection{Opis problemu}

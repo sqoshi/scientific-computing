@@ -81,7 +81,7 @@ function rysujNnfx(f,a::Float64,b::Float64,n::Int)
 
   fx = ilorazyRoznicowe(x, y);
   closeness = 101;
-  functionResults =Array{Float64}(undef,closeness);
+  functionResults = Array{Float64}(undef,closeness);
   interpResults = Array{Float64}(undef,closeness);
   h1 = (b - a) / (closeness-1);
   for i=1 : closeness
