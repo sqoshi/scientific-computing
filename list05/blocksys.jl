@@ -1,5 +1,12 @@
+#Piotr Popis
+#245162
 module blocksys
 using SparseArrays
+"""
+Function loads Vector b from file file to program's memory.
+When loop face end of data program return current data.
+Loads the data line by line and returning new b vector.
+"""
 function getVec(file::String)
 
     b=zeros(0)
@@ -18,6 +25,12 @@ function getVec(file::String)
     return b
 end
 
+"""
+Function loads matrix A from file file to program's memory.
+Loads first line as 2 parameteres n, l from exercise content, and moving
+to saving 3 values by line index i1, index j1 and value not equal to 0 a[i1,j1] of matrix A.
+Function return n,l,A when faces end of the file.
+"""
 function getMatrix(file::String)
 
     open(file) do f
@@ -39,5 +52,18 @@ end
 
 println(getVec("b.txt"))
 println(getMatrix("A.txt"))
+
+"""
+"""
+function save(file::String,x::Vector{Float64},n::Int64)
+    open(file,"x.txt") do f
+            rerr=norm(ones(n)-x)/norm(x)
+            println(f,rerr)
+        for i in 1:n
+            println(f,x[i])
+        end
+        end    end
+
+
 
 end
