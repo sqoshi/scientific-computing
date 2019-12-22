@@ -54,6 +54,9 @@ println(getVec("b.txt"))
 println(getMatrix("A.txt"))
 
 """
+Function that saves Vector x in file x.txt.
+It's need the length on the file, meaining count of lines.
+At first line prints realtive error rerr.
 """
 function save(file::String,x::Vector{Float64},n::Int64)
     open(file,"x.txt") do f
