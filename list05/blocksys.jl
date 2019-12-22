@@ -65,7 +65,20 @@ function save(file::String,x::Vector{Float64},n::Int64)
         for i in 1:n
             println(f,x[i])
         end
-        end    end
+        end
+    end
+
+
+function calculateb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
+    if (l<2){ return}end
+    b=zeros(Float64,n)
+    x=ones(Float64,n)
+    v=Int64(n/l)
+    for i in 1:n
+        last
+    end
+    return b
+end
 
 function gaussianElimination()
 end
