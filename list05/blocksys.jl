@@ -67,6 +67,7 @@ function save(file::String,x::Vector{Float64},n::Int64)
         end
         end    end
 
-
+function gaussianElimination()
+end
 
 end
