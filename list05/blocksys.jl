@@ -68,7 +68,12 @@ function save(file::String,x::Vector{Float64},n::Int64)
         end
     end
 
-
+"""
+Function calculates b vector using formula b=A*x.
+Based on Sparse Array A, length of the vector n, and
+l should be bigger than or equal to 2 and it's
+the count of ALL internal squared Matrixes of A
+"""
 function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     if (l<2){ return}end
     b=zeros(Float64,n)
@@ -84,7 +89,14 @@ function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     return b
 end
 
-function gaussianElimination()
+function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64})
+    x = Vector{Float64}(n)
+    # i is block Ak,Bk,Ck
+    for i in 1 : n-1
+        lastNotZeroInCurrentRow = Integer(min(i+l,n))
+        lastNotZeroInCurrentColumn = Integer(min(l*floor(i/l)+l,n))
+    end
+
 end
 
 end
