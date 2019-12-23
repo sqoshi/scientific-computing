@@ -2,6 +2,7 @@
 #245162
 module blocksys
 using SparseArrays
+export getVec,getMatrix,save,calculateVecb,gaussianElimination
 """
 Function loads Vector b from file file to program's memory.
 When loop face end of data program return current data.
@@ -72,7 +73,7 @@ function save(file::String,x::Vector{Float64},n::Int64)
 Function calculates b vector using formula b=A*x.
 Based on Sparse Array A, length of the vector n, and
 l should be bigger than or equal to 2 and it's
-the count of ALL internal squared Matrixes of A
+size of the block Ak,Bk,Ck
 """
 function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     if (l<2){ return}end
@@ -89,14 +90,26 @@ function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     return b
 end
 
-function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64})
+function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64},LU::Bool)
     x = Vector{Float64}(n)
-    # i is block Ak,Bk,Ck
     for i in 1 : n-1
         lastNotZeroInCurrentRow = Integer(min(i+l,n))
         lastNotZeroInCurrentColumn = Integer(min(l*floor(i/l)+l,n))
+        for j in i+1 : lastNotZeroInCurrentRow
+            I = A[j,i]/A[i,i]
+            if LU
+                A[j,i] = I
+            else
+                A[j,i] = 0
+            end
+            for c in i+1 : lastNotZetoInCurrentColumn
+                A[j,c]-= I * A[i,c]
+            end
+            if !LU
+                b[i] -= I * b[i]
+            end
+        end
     end
-
 end
 
 end
