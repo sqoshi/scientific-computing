@@ -33,7 +33,6 @@ to saving 3 values by line index i1, index j1 and value not equal to 0 a[i1,j1] 
 Function return n,l,A when faces end of the file.
 """
 function getMatrix(file::String)
-
     open(file) do f
         line=split(readline(f))
         n=parse(Int64,line[1])
@@ -61,7 +60,7 @@ At first line prints realtive error rerr.
 """
 function save(file::String,x::Vector{Float64},n::Int64)
     open(file,"x.txt") do f
-            rerr=norm(ones(n)-x)/norm(x)
+            rerr = norm(ones(n)-x)/norm(x)
             println(f,rerr)
         for i in 1:n
             println(f,x[i])
@@ -90,26 +89,48 @@ function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     return b
 end
 
-function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64},LU::Bool)
-    x = Vector{Float64}(n)
-    for i in 1 : n-1
-        lastNotZeroInCurrentRow = Integer(min(i+l,n))
-        lastNotZeroInCurrentColumn = Integer(min(l*floor(i/l)+l,n))
-        for j in i+1 : lastNotZeroInCurrentRow
-            I = A[j,i]/A[i,i]
-            if LU
-                A[j,i] = I
-            else
-                A[j,i] = 0
+function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},saveToFile::Bool)
+    x = Vector{Float64}(undef,n)
+    for i = 1 : n-1
+        lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+        lastNonZeroInRow = Integer(min(i+l,n))
+
+        for j = i + 1 : lastNonZeroInColumn
+            if A[i,i] == 0
+                print("ERROR: zero na diagonali")
+                exit(1)
             end
-            for c in i+1 : lastNotZetoInCurrentColumn
-                A[j,c]-= I * A[i,c]
+            multpCoeff = A[j, i] / A[i, i]
+            A[j, i] = 0.0
+
+            for k = i + 1 : lastNonZeroInRow
+                A[j, k] = A[j, k] - multpCoeff * A[i, k]
             end
-            if !LU
-                b[i] -= I * b[i]
-            end
+            b[j] = b[j] - multpCoeff * b[i]
         end
     end
-end
 
+    x[n] = b[n] / A[n, n]
+    for i = n - 1 : -1 : 1
+        sum = 0
+        lastNonZeroInRow = Integer(min(i+l,n))
+        for j = i+1 : lastNonZeroInRow
+            sum += x[j] * A[i, j]
+        end
+        x[i] = (b[i] - sum) / A[i, i]
+    end
+    if saveToFile
+        writedlm("output.txt", x)
+    end
+    return x
+end
+vectorFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/b.txt"
+matrixFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/A.txt"
+#function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64},LU::Bool)
+print("-----------------10000\n")
+n = getMatrix(matrixFile2)[1]
+l = getMatrix(matrixFile2)[2]
+matrix = getMatrix(matrixFile2)[3]
+vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
+gaussianElimination(10000,4,matrix,vec,false)
 end
