@@ -50,7 +50,8 @@ C_k=\begin{bmatrix}
       0 & ... & 0 & 0 & c^k_l \\
   \end{bmatrix}
 \]
-W przypadku naszego problemu n jest ogromne co wiąże się z ograniczeniem - nie używaniem tablicy dwuwymiarowej, która jest czasowo i pamięciowo niewydajna dla dużych n. Prawdopodobnie należy skorzystać z pakietu SparseArrays - specjalna struktura efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementóœ zerowych i niezerowych. Możliwe jest zredukowanie 
+W przypadku naszego problemu n jest ogromne co wiąże się z ograniczeniem - nie używaniem tablicy dwuwymiarowej, która jest czasowo i pamięciowo niewydajna dla dużych n. Prawdopodobnie należy skorzystać z pakietu SparseArrays, która zawiera specjalną strukturę efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementów zerowych i niezerowych. Istniejące algorytmy do rozwiązywania takich problemów trzeba po prostu zmodyfikować do użycia tej spejcalnej struktury. Jeśli l jest stałe Algorytmy da się zoptymalizować czasowo z $\theta(n^3)$ do  $
+\theta(n)$
 
 \subsection{Opis implementacji wraz z analizą złożoności algorytmu}
 \subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
