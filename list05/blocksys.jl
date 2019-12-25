@@ -94,33 +94,22 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
     for i = 1 : n-1
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
-
-        for j = i + 1 : lastNonZeroInColumn
-            if A[i,i] == 0
-                print("ERROR: zero na diagonali")
-                exit(1)
+        for j  in i+1 : lastNonZeroInColumn
+            lij= A[i,j]/A[i,i]
+            A[i,j]=0
+            for k in i+1:lastNonZeroInRow
+            A[k,j]-=lij*A[k,i]
             end
-            multpCoeff = A[j, i] / A[i, i]
-            A[j, i] = 0.0
-
-            for k = i + 1 : lastNonZeroInRow
-                A[j, k] = A[j, k] - multpCoeff * A[i, k]
-            end
-            b[j] = b[j] - multpCoeff * b[i]
+            b[j]-=lij*b[i]
         end
     end
-
-    x[n] = b[n] / A[n, n]
-    for i = n - 1 : -1 : 1
-        sum = 0
-        lastNonZeroInRow = Integer(min(i+l,n))
-        for j = i+1 : lastNonZeroInRow
-            sum += x[j] * A[i, j]
+    for i in n:-1:1
+        sum=0.0
+        maxC=min(n,i+l)
+        for j in i+1:maxC
+            sum+=A[j,i]*x[j]
         end
-        x[i] = (b[i] - sum) / A[i, i]
-    end
-    if saveToFile
-        writedlm("output.txt", x)
+        x[i]=(b[i]-sum)/A[i,i]
     end
     return x
 end
@@ -132,5 +121,5 @@ n = getMatrix(matrixFile2)[1]
 l = getMatrix(matrixFile2)[2]
 matrix = getMatrix(matrixFile2)[3]
 vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
-gaussianElimination(10000,4,matrix,vec,false)
+println(gaussianElimination(n,l,matrix,vec,false))
 end

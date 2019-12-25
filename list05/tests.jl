@@ -13,5 +13,5 @@ xGE2 = blocksys.gaussianElimination(10000,4,matrix,vec,false)
 x2 = @time matrix \ vec
 
 @testset "t1" begin
-    @test
+    @test isapprox(blocksys.gaussianElimination(A, b, n, l), \(A, b))
 end
