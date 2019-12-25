@@ -96,11 +96,11 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
         lastNonZeroInRow = Integer(min(i+l,n))
         for j  in i+1 : lastNonZeroInColumn
             lij= A[i,j]/A[i,i]
+            b[j]-=lij*b[i]
             A[i,j]=0
             for k in i+1:lastNonZeroInRow
             A[k,j]-=lij*A[k,i]
             end
-            b[j]-=lij*b[i]
         end
     end
     for i in n:-1:1

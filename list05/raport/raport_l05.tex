@@ -1,8 +1,9 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[left=12mm,
-right=12mm,top=1.5in,
+right=12mm,top=1.0in,
 bottom=1.5in]{geometry}
+\usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{cancel}
 \usepackage{graphicx}
@@ -15,8 +16,42 @@ bottom=1.5in]{geometry}
 \date{6 grudzień 2019}
 \maketitle
 \centering
+
 \begin{flushleft}
 \section{Zadanie 1}
+\subsection{Streszczenie problemu}
+Problemem jest rozwiązanie równania liniowego $Ax=b$,gdzie $A \epsilon R^{nxn}$ jest podaną macierzą, a $b \epsilon R^n$ zadanym wektorem prawych stron( przy założeniu, iż $n \geq 4$ ).
+Dodatkowo macierz A jest macierzą rzadką- taką, która ma dużo elementów zerowych oraz blokową.
+\[
+A=\begin{bmatrix}
+      A_1 & C_1 & 0 & ... & 0 \\
+    B_2 & A_2 & C_2 & .. & 0 \\
+    \vdots & \ddots & \ddots & \ddots & \vdots \\
+     0 & ... & B_{v-1} & A_{v-1} & C_{v-1} \\
+      0 & ... & 0 & B_v & A_v \\
+  \end{bmatrix}
+\]
+, gdzie $v=\dfrac{n}{l}$ przy założeniu iż l zawsze dzieli n( n jest podzielne przez l) oraz $l\geq2$. l jest rozmiarem wszystkich kwadratowych macierzy wewnętrznych - bloków: $A_k, B_k, C_k$. Mianowicie: $$A_k \epsilon R^{lxl}, k = 1,...,v  ,$$ A jest macierzą gęstą, \\0 jest kwadratową macierzą zerową stopnia l,\\Natomiast macierz $$B_k \epsilon R^{lxl}, k = 2,...,v  ,$$ $B_k$ ma tylko \underline{dwie ostatnie kolumny niezerowe} i jest postaci:   
+\[
+B_k=\begin{bmatrix}
+      0 & ... & 0 & b^k_{1l-1} & b^k_{1l} \\
+      0 & ... & 0 & b^k_{2l-1} & b^k_{2l} \\
+      \vdots &     & \vdots & \vdots & \vdots \\
+      0 & ... & 0 & b^k_{ll-1} & b^k_{ll} \\
+  \end{bmatrix}
+\]
+Ostani z bloków $$C_k \epsilon R^{lxl}, k = 1,...,v-1  ,$$ $C_k$ jest macierzą diagonalną i jest postaci:
+\[
+C_k=\begin{bmatrix}
+      c^k_1 & 0 & 0 & ... & 0 \\
+    0 & c^k_2 & 0 & .. & 0 \\
+    \vdots & \ddots & \ddots & \ddots & \vdots \\
+     0 & ... & 0 & c^k_{l-1} & 0 \\
+      0 & ... & 0 & 0 & c^k_l \\
+  \end{bmatrix}
+\]
+W przypadku naszego problemu n jest ogromne co wiąże się z ograniczeniem - nie używaniem tablicy dwuwymiarowej, która jest czasowo i pamięciowo niewydajna dla dużych n. Prawdopodobnie należy skorzystać z pakietu SparseArrays - specjalna struktura efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementóœ zerowych i niezerowych. Możliwe jest zredukowanie 
+
 \subsection{Opis implementacji wraz z analizą złożoności algorytmu}
 \subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \subsection{Wnioski}
