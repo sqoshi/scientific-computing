@@ -50,17 +50,23 @@ C_k=\begin{bmatrix}
       0 & ... & 0 & 0 & c^k_l \\
   \end{bmatrix}
 \]
-Z treści n jest ogromne co wiąże się dużym obciążeniem pamięciowym jak i czasowym w przypadku zwykłej tablicy. Należy skorzystać z pakietu SparseArrays, która zawiera specjalną strukturę efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementów zerowych i niezerowych. Istniejące algorytmy do rozwiązywania takich problemów trzeba po prostu zmodyfikować do użycia tej spejcalnej struktury. Jeśli l jest stałe Algorytmy da się zoptymalizować czasowo z $\theta(n^3)$ do  $\theta(n)$.\\
+Z treści n jest ogromne co wiąże się dużym obciążeniem pamięciowym jak i czasowym w przypadku zwykłej tablicy. Należy skorzystać z pakietu SparseArrays, która zawiera specjalną strukturę efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementów zerowych i niezerowych. Istniejące algorytmy do rozwiązywania takich problemów trzeba po prostu zmodyfikować do użycia tej spejcalnej struktury. Jeśli l jest stałe Algorytmy da się zoptymalizować czasowo z $\mathcal{O}(n^3)$ do  $\mathcal{O}(n)$.\\
 \subsection{Treść}
 \paragraph{Zadanie 1} Należy stworzyć funkcję rozwiązującą układ $Ax=b$ metodą eliminacji Gaussa uwzględniającą postać macierzy A zadanej w streszczeniu dla dwóch wariantów \\ (a)bez wyboru elementu głównego \\(b)z częściowym wyborem elementu głównego\\ \paragraph{Zadanie 2} Należy napisać funkcję wyznaczającą rozkład $LU$ macierzy A metodą eliminacji Gauss'a uwzględniającą specyficzną postać macierzy $A$ dla \\ (a)bez wyboru elementu głównego \\(b)z częściowym wyborem elementu głównego \\ \paragraph{Zadanie 3} Należy napisać funkcję rozwiązującą układ równań $Ax=b$ ( uwzgledniającą specyficzną postać macierzy $A$ ).\\
 \bigskip
 Wszystkie funkcje powinny byc umieszczone w module o nazwie blocksys. Należy przeczytać Sparse Arrays manual Julia. Założyć, że dostęp do elementu macierzy jest w czasie stałym. Nie można używać $x=\dfrac{A}{b}$ oraz $lu$ z modułu LinearAlgebra.
 \section{Zadanie 1}
+\subsection{Opis standardowej procedury wraz z analizą złożoności algorytmu}
 \paragraph{Na czym polega metoda eliminacji Gauss'a?}
-Metoda ta polega na sprowadzeniu układów równań( macierzy) do równoważnego układu z wykorzystaniem macierzy trójkątnej górnej,  następnie rozwiązaniu tego układu przy pomocy algorytmu podstawiania wstecz.
+Metoda ta polega na sprowadzeniu układu równań( macierzy) do równoważnego układu z wykorzystaniem macierzy trójkątnej górnej,  następnie rozwiązaniu tego układu przy pomocy algorytmu podstawiania wstecz.
 \paragraph{Na czym polega algorytm podstawiania wstecz?}
-Algorytm ten bazuje na zerowaniu kolejnych elementów macierzy poniżej diagonali( czyli ten niezerowej przekątnej).\\ 1. Zerowanie elementów poniżej pierwszego wiersza w pierwszej kolumnie.\\2. $a_{i1}
+Algorytm ten bazuje na zerowaniu kolejnych elementów macierzy poniżej diagonali( czyli tej niezerowej przekątnej).
+\paragraph{Przebieg procedury}  1. Zerowanie elementów poniżej pierwszego wiersza w pierwszej kolumnie.\\2. Ogólnie, aby wyzerować $a_{i1}$ od wiersza i-tego odejmowany jest wyraz pierwszy pomnżony przez liczbę $\dfrac{a_{i1}}{a_{11}}$ \\ 3. Następnie przechodzimy do kolejnej kolumny( tutaj drugiej itd) i powtarzamy powyższe procedury z taką zmianą, że teraz odejmowany wiersz i( tutaj drugi $a_{22}$ itd).\\
+Niestety procedura nie zadziała jeśli którtkolwiek z diagonalnych elementów będzie zerem( jak widać we wzorze). Aby rozwiązać ten problem należy przeprowadzić odpowiednią modyfikację. W i-tym kroku , w i-tej kolumnie należy wyszukać w kolejnych wierszach j-ty element o wartości co do modułu największej i zamienić wtedy $a_{ii}$ z $ a_{ji}$ (wzór: $a_{wierszkolumna}$).\\Następnie korzystamy z algorytmu wstecz, czyli matematycznie wzoru: $x_i = \dfrac{b_i-\sum^n_{j=i+1} a_{ij}}{a_{ii}}$.\\ 
+Począwszy od ostatniego indeksu.( n)\\
+Zakładając, że n jest rozmiarem macierzy złożonośc obliczeniowa eliminacji Gaussa wynosi co najwyżej $\mathcal{O}(n^3)$, a algorytm podstawiania wstecz $\mathcal{O}(n^2)$. Łącznie, aby rowiązać układ należy wykonać $\mathcal{O}(n^3)$ operacji.
 \subsection{Opis implementacji wraz z analizą złożoności algorytmu}
+Celem zadania jest modyfikacja i optymalizacja algorytmu. Zauważmy, że rozpatrywana macierz ma dość specyficzną, nietypową postać. Jest macierzą rzadką. Pozwala to znacznie zredukować ilość wykonywanych operacji
 \subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \subsection{Wnioski}
 \end{flushleft}
