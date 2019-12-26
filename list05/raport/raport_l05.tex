@@ -66,7 +66,14 @@ Niestety procedura nie zadziała jeśli którtkolwiek z diagonalnych elementów 
 Począwszy od ostatniego indeksu.( n)\\
 Zakładając, że n jest rozmiarem macierzy złożonośc obliczeniowa eliminacji Gaussa wynosi co najwyżej $\mathcal{O}(n^3)$, a algorytm podstawiania wstecz $\mathcal{O}(n^2)$. Łącznie, aby rowiązać układ należy wykonać $\mathcal{O}(n^3)$ operacji.
 \subsection{Opis implementacji wraz z analizą złożoności algorytmu}
-Celem zadania jest modyfikacja i optymalizacja algorytmu. Zauważmy, że rozpatrywana macierz ma dość specyficzną, nietypową postać. Jest macierzą rzadką. Pozwala to znacznie zredukować ilość wykonywanych operacji
+\subsubsection{SparseMatrix pamięć}
+Celem zadania jest modyfikacja i optymalizacja algorytmu. Zauważmy, że rozpatrywana macierz ma dość specyficzną, nietypową postać. Jest macierzą rzadką. Ma $(l+3)n-3l$ elementów, które nie są zerami.\\
+\begin{center}
+$l^2$ - w każdym z v bloków $A_k$, \\ $2l$ - w każdym z v-1 bloków $B_k$, \\ $l$ - w każdym z v-1 bloków $C_k$\end{center} Do przechowywania macierzy wykorzystamy struktuę do przechowywania macierzy rzadkich SparseMatrixCSC. Macierze takie są przechowywane w skompresowanym porządku kolumnowym. Algorytm Gauss'a natomiast ma przebieg wierszowy, zatem w implementacji musimy zamienić miejscami indeksy kolumny i wiersza i pracować na macierzach trasnponowanych. Aby ułatwić proces zrozumienia algorytmu uznaję to za problem implementacyjny i indeksuję w roważaniach w sposób standardowy. \underline{Dzięku użyciu takiej struktury mamy szybszy dostęp do elementów.}
+\subsubsection{Modyfikacja, optymalizacja algorytmu}
+Zwrócmy uwagę na postać macierzy A. Jest to macierz diagonalna, a nawet trójdiagonalna. W dodatku jest to macierz blokowa( $A_k,B_k,C_k$). Zauważmy, że nie jest konieczne zerowanie wszystkich elementów poniżej diagonali( przekątnej), bo już są wyzerowane. \\ \underline{Pozwala to zredukować ilość wykonywanych obliczeń.}\\ W pierwszych $l-2$ kolumnach potencjalne niezerowe elementy znajdują sie w $l$-pierwszych wierszach i są to elementy bloku $A_1$, dla kolejnych $l$ kolumn elementy niezerowe znajdują się prawdopodobnie w pierwszych $2l$ wierszach są to elementy bloku $A_3$ oraz dwie ostatnie kolumny bloku $B_2$. W kolejnych l kolumnach niezerowe elementy znajdują się w peirwszych 3l wierszach są nimi elementy bloku $B_3$ oraz elementy bloku $A_4$ rzecz jasna niezerowe elementy.\\
+Zatem ostatni niezerowy element w danej kolumnie można obliczyć korzystając z funkcji min(). Ostatecznie ostatni niezerowy element w kolumnie wyrażamy wzorem: $min \Big( n,$ $l+l \Big \lfloor \dfrac{column+1}{l} \Big \rfloor \Big)$
+
 \subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \subsection{Wnioski}
 \end{flushleft}
