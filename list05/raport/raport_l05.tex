@@ -18,8 +18,8 @@ bottom=1.5in]{geometry}
 \centering
 
 \begin{flushleft}
-\section{Zadanie 1}
-\subsection{Streszczenie problemu}
+\section{Wstęp}
+\subsection{Streszczenie}
 Problemem jest rozwiązanie równania liniowego $Ax=b$,gdzie $A \epsilon R^{nxn}$ jest podaną macierzą, a $b \epsilon R^n$ zadanym wektorem prawych stron( przy założeniu, iż $n \geq 4$ ).
 Dodatkowo macierz A jest macierzą rzadką- taką, która ma dużo elementów zerowych oraz blokową.
 \[
@@ -50,9 +50,16 @@ C_k=\begin{bmatrix}
       0 & ... & 0 & 0 & c^k_l \\
   \end{bmatrix}
 \]
-W przypadku naszego problemu n jest ogromne co wiąże się z ograniczeniem - nie używaniem tablicy dwuwymiarowej, która jest czasowo i pamięciowo niewydajna dla dużych n. Prawdopodobnie należy skorzystać z pakietu SparseArrays, która zawiera specjalną strukturę efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementów zerowych i niezerowych. Istniejące algorytmy do rozwiązywania takich problemów trzeba po prostu zmodyfikować do użycia tej spejcalnej struktury. Jeśli l jest stałe Algorytmy da się zoptymalizować czasowo z $\theta(n^3)$ do  $
-\theta(n)$
-
+Z treści n jest ogromne co wiąże się dużym obciążeniem pamięciowym jak i czasowym w przypadku zwykłej tablicy. Należy skorzystać z pakietu SparseArrays, która zawiera specjalną strukturę efektywnie pamiętająca specyficznie macierze, tj rzadkość lub regularność występowania elementów zerowych i niezerowych. Istniejące algorytmy do rozwiązywania takich problemów trzeba po prostu zmodyfikować do użycia tej spejcalnej struktury. Jeśli l jest stałe Algorytmy da się zoptymalizować czasowo z $\theta(n^3)$ do  $\theta(n)$.\\
+\subsection{Treść}
+\paragraph{Zadanie 1} Należy stworzyć funkcję rozwiązującą układ $Ax=b$ metodą eliminacji Gaussa uwzględniającą postać macierzy A zadanej w streszczeniu dla dwóch wariantów \\ (a)bez wyboru elementu głównego \\(b)z częściowym wyborem elementu głównego\\ \paragraph{Zadanie 2} Należy napisać funkcję wyznaczającą rozkład $LU$ macierzy A metodą eliminacji Gauss'a uwzględniającą specyficzną postać macierzy $A$ dla \\ (a)bez wyboru elementu głównego \\(b)z częściowym wyborem elementu głównego \\ \paragraph{Zadanie 3} Należy napisać funkcję rozwiązującą układ równań $Ax=b$ ( uwzgledniającą specyficzną postać macierzy $A$ ).\\
+\bigskip
+Wszystkie funkcje powinny byc umieszczone w module o nazwie blocksys. Należy przeczytać Sparse Arrays manual Julia. Założyć, że dostęp do elementu macierzy jest w czasie stałym. Nie można używać $x=\dfrac{A}{b}$ oraz $lu$ z modułu LinearAlgebra.
+\section{Zadanie 1}
+\paragraph{Na czym polega metoda eliminacji Gauss'a?}
+Metoda ta polega na sprowadzeniu układów równań( macierzy) do równoważnego układu z wykorzystaniem macierzy trójkątnej górnej,  następnie rozwiązaniu tego układu przy pomocy algorytmu podstawiania wstecz.
+\paragraph{Na czym polega algorytm podstawiania wstecz?}
+Algorytm ten bazuje na zerowaniu kolejnych elementów macierzy poniżej diagonali( czyli ten niezerowej przekątnej).\\ 1. Zerowanie elementów poniżej pierwszego wiersza w pierwszej kolumnie.\\2. $a_{i1}
 \subsection{Opis implementacji wraz z analizą złożoności algorytmu}
 \subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \subsection{Wnioski}
