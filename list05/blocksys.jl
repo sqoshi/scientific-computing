@@ -89,7 +89,8 @@ function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     return b
 end
 """
-Function that
+Function that uses gaussian eliminato and subsitute alghoritm
+
 """
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},saveToFile::Bool)
     x = Vector{Float64}(undef,n)
