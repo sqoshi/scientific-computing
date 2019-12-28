@@ -88,9 +88,12 @@ function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     end
     return b
 end
-
+"""
+Function that
+"""
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},saveToFile::Bool)
     x = Vector{Float64}(undef,n)
+    #gaussianElimination
     for i = 1 : n-1
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
@@ -103,6 +106,7 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
             end
         end
     end
+    #Substitute
     for i in n:-1:1
         sum=0.0
         maxC=min(n,i+l)
