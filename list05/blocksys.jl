@@ -92,7 +92,7 @@ end
 Function that uses gaussian eliminato and subsitute alghoritm
 
 """
-function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},saveToFile::Bool)
+function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
     x = Vector{Float64}(undef,n)
     #gaussianElimination
     for i = 1 : n-1
@@ -126,5 +126,8 @@ n = getMatrix(matrixFile2)[1]
 l = getMatrix(matrixFile2)[2]
 matrix = getMatrix(matrixFile2)[3]
 vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
-println(gaussianElimination(n,l,matrix,vec,false))
+println(gaussianElimination(n,l,matrix,vec))
+function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+
+end
 end
