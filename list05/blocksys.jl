@@ -99,11 +99,11 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
         for j  in i+1 : lastNonZeroInColumn
-            lij= A[i,j]/A[i,i]
-            b[j]-=lij*b[i]
+            g = A[i,j]/A[i,i]
+            b[j]-=g*b[i]
             A[i,j]=0
             for k in i+1:lastNonZeroInRow
-            A[k,j]-=lij*A[k,i]
+            A[k,j]-=g*A[k,i]
             end
         end
     end
@@ -128,6 +128,12 @@ matrix = getMatrix(matrixFile2)[3]
 vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
 println(gaussianElimination(n,l,matrix,vec))
 function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+#permutation array
+p = collect(1:n)
 
+for i in 1:n-1
+    lastNonZeroInColumn=min(n,floor((i+1)/l)*l+l)
+    lastNonZeroInRow=min(n,floor((i+1)/l)*l+2l)
+end
 end
 end
