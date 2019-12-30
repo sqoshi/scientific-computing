@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+
 \usepackage[T1]{fontenc}
 \usepackage[left=12mm,
 right=12mm,top=1.0in,
@@ -8,8 +9,11 @@ bottom=1.5in]{geometry}
 \usepackage{cancel}
 \usepackage{graphicx}
 \usepackage{grffile}
+
+\setcounter{section}{-1}
 \graphicspath{{/home/piotr/Documents/scientific-computing/list04/exercise5/plots/}{/home/piotr/Documents/scientific-computing/list04/exercise6/plots/}}
 \DeclareUnicodeCharacter{2212}{-}
+
 \begin{document}
 \title{{Obliczenia Naukowe}}
 \author{Laboratorium Lista Nr 5\\Piotr Popis\\ 245162}
@@ -93,7 +97,19 @@ W celu uniknięcia nadużycia zasobów pamięci wykorzystam addytywną tablicę 
 \subsection{Analiza złożoności obliczeniowej zmodyfikowanego algorytmu z częściowym wyborem elementu głownego}
 Wariant ten jest nieco bardziej kosztowany. Pojawia się koszt wyszukania maksymalnego elementu głownego o największej co do wartości bezwzględnej wartości w danej "zerowanej", bieżącej kolumnie. Wyszukanie go występuje w $lastNotZeroInColumn - i$ elementów, w przybliżeniu uznaję za $2l$.Wewnętrzna pętla przechodzi po $3l$ elementów każdego z wierszy. Ostatecznie koszt to $n2l(2l+3l)=10l^2n$, zatem jest około 5 razy bardziej złożony obliczeniowo niż algorytm bez wyboru elementu głownego. Mimo to algorytm jest wciąż asymptotycznie liniowy $
 \mathcal{O}(n)$
-\subsection{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
-\subsection{Wnioski}
+\section{Zadanie 2}
+\subsection{Opis implementacji wraz z analizą złożoności algorytmu}
+\paragraph{Na czym polega rozkład LU} Rozkład LU polega na takim rozłożeniu macierzy A na czynniki L oraz U, gdzie obydwie macierze są macierzami trójkątnymi z tym, że U jest macierzą trójkątną górną, a L jest macierzą trójkątną dolną. Inaczej mówiąc rozkład LU polega na przedstawieniu macierzy A w potaci iloczynu $$A = LU$$ z zadanymi warunkami. Dodatkowo zakładamy, że wszystkie elementy diagonalne macierzy $L$ są równe 1.\\ Rozkład LU możemy otrzymać w wyniku przeprowadzenia elimiacji Gauss'a. Czynnik $U$ uzyskujemy w wyniki przekształcenia macierzy $A$ w skutek użycia powyższego algorytmu. Natomiast macierz $L$ możemy stworzyć wykorzystując czynniki $z$ użyte do zerowania macierzy. Wtedy zapisujemy mnożnik użyty w i-tym wierszu , w j-tej kolumnie w odpowiadającej jej komórce macierzy $L$. Do przeprowadzenia rozkładu musimy wykonać $\mathcal{O}(n^3)$ działań. Wykorzystanie rozkładu LU jest jednak zdecydowanie skuteczniejsze jeśli zamierzamy użyć tej samej macierzy przy wielu układach, wtedy algorytm eliminacji Gauss'a wykonany jest raz. A następnie układu dzielimy na dwa etapy:
+$$
+\left\{ 
+\begin{array}{ll}
+Lz = b\\
+Ux = z\\
+\end{array} \right.
+$$
+A to kosztuje już $\mathcal{O}(n^2)$
+
+\section{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
+\section{Wnioski}
 \end{flushleft}
 \end{document}

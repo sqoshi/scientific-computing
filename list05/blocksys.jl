@@ -98,26 +98,83 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
     for i = 1 : n-1
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
+
         for j  in i+1 : lastNonZeroInColumn
-            g = A[i,j]/A[i,i]
-            b[j]-=g*b[i]
-            A[i,j]=0
+			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
+				error("ELement that belong to some matrix diagonal is equal to 0")
+				exit(0)
+			end
+
+			z = A[i,j]/A[i,i]
+            b[j] -= z*b[i]
+            A[i,j] = 0
+
             for k in i+1:lastNonZeroInRow
-            A[k,j]-=g*A[k,i]
+            	A[k,j] -= z*A[k,i]
             end
+
         end
     end
     #Substitute
     for i in n:-1:1
-        sum=0.0
-        maxC=min(n,i+l)
-        for j in i+1:maxC
-            sum+=A[j,i]*x[j]
+        sum = 0.0
+        lastNonZeroInRow = min(n,i+l)
+        for j in i+1 : lastNonZeroInRow
+            sum += A[j,i]* x[j]
         end
         x[i]=(b[i]-sum)/A[i,i]
     end
     return x
 end
+
+
+function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+	x = Vector{Float64}(undef,n)
+
+	#permutation array
+	p = collect(1:n)
+	for i in 1:n-1
+	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
+
+	    for j  in i+1 : lastNonZeroInColumn
+	        rowIndex = i
+	        max = abs(A[i,p[i]])
+
+	        for k in j:lastNonZeroInColumn
+	            if (abs(A[i,p[k]]) > max)
+	                rowIndex = k
+	                max = abs(A[k,p[k]])
+	            end
+	        end
+
+	        if (abs(max) < eps(Float64))
+					error("Column \"", k, "\" in matrix is osobliwa")
+			end
+
+			p[i], p[rowIndex] = p[rowIndex], p[i]
+	        z = A[i,p[j]]/A[i,p[i]]
+	        b[p[j]] -= z*b[p[i]]
+	        A[i,p[j]] = 0
+
+			for k in i+1:lastNonZeroInRow
+	        	A[k,j]-=g*A[k,i]
+	        end
+		end
+	end
+
+	#Substitute
+	for i in n:-1:1
+	    sum=0.0
+	    lastNonZeroInRow = Integer(min(2*l + l*floor((i+1)/l), n))
+	    for j in i+1 : lastNonZeroInRow
+	        sum+=A[j,p[i]]*x[j]
+	    end
+	    x[i]=(b[p[i]]-sum)/A[i,p[i]]
+	end
+	return x
+end
+
 vectorFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/b.txt"
 matrixFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/A.txt"
 #function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64},LU::Bool)
@@ -127,51 +184,6 @@ l = getMatrix(matrixFile2)[2]
 matrix = getMatrix(matrixFile2)[3]
 vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
 println(gaussianElimination(n,l,matrix,vec))
-
-
-function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-x = Vector{Float64}(undef,n)
-#permutation array
-p = collect(1:n)
-	for i in 1:n-1
-	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
-	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
-
-	    for j  in i+1 : lastNonZeroInColumn
-	        rowIndex = i
-	        max=abs(A[i,p[i]])
-
-	        for k in j:lastNonZeroInColumn
-	            if (abs(A[i,p[k]])>max)
-	                rowIndex=k
-	                max=abs(A[k,p[k]])
-	            end
-	        end
-
-	        if (abs(max) < eps(Float64))
-					error("Each one element of column \"", k, "\" is equal to 0")
-			end
-
-			p[i], p[rowIndex] = p[rowIndex], p[i]
-	        g = A[i,p[j]]/A[i,p[i]]
-	        b[p[j]] -= g*b[p[i]]
-	        A[i,p[j]] = 0
-
-			for k in i+1:lastNonZeroInRow
-	        	A[k,j]-=g*A[k,i]
-	        end
-		end
-	end
-	#Substitute
-	for i in n:-1:1
-	    sum=0.0
-	    lastNonZeroInRow=min(n,i+l)
-	    for j in i+1:lastNonZeroInRow
-	        sum+=A[j,p[i]]*x[j]
-	    end
-	    x[i]=(b[p[i]]-sum)/A[i,p[i]]
-	end
-	return x
-end
+println(gaussianEliminationWithPivot(n,l,matrix,vec))
 
 end
