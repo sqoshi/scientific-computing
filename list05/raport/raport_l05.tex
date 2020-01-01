@@ -86,7 +86,7 @@ Metoda eliminacji Gauss'a doprowadza nas do macierzy trójkątnej górnej, któr
 \subsubsection{Analiza złożoności obliczeniowej zmodyfikowanego algorytmu}
 Zakładam, że l jest stałą. \\
 Zewnętrzna pętla i eliminacji Gauss'a  wykonuje n-1 przejść, wewnętrzna j wykonuje dokładnie 2l przebiegów, a najbardziej wewnętrzna k i nie mająca w sobie żadnego innego zagnieżdżenia l opracji. Zewnętrzna pętla podstawiania wykonuje n przejść, a wewnętrzna co najwyżej l. W sumie łącznie dla eliminacji mamy $2l^2n$ operacji, a dla podstawiania $nl$, zatem złożoność wynosi $\mathcal{O}(n)$ nazywana złożonością liniową.
-\subsection{Algorytm z częśćiowym wyborem elementu głownego rozwiązanie problemu zerowego elementu diagonali}
+\subsection{Algorytm z częściowym wyborem elementu głownego rozwiązanie problemu zerowego elementu diagonali}
 Jak już wspomnieliśmy w paragrafie \textsl{Przebieg procedury} na początku sekcji \textsl{2.1 Opis standardowej procedury wraz z analizą złożoności algorytmu} możemy napotkać na sytuację, w której nasz algorytm nie zadziała. Mianowicie, gdy którykolwiek z elementów diagonali będzie zerem. Na szczęście problem ten można rozwiązać w dość prosty sposób rozwiązać. W każdej kolumnie przed rozpoczęciem zerowania wybrać maksymalny co do wartości bezwzględnej element w kolumnie i uznać go za element, od którego będziemy odejmować.
 \paragraph{Jak wyglądają modyfikacje wynikające z częściowego wyboru elementu głownego?}
 Zacznijmy od analizy kolumny. Samo ograniczenie ostatniego, maksymalnego niezerowego argumentu w danej kolumie się nie zmieni, natomiast wartość podlega wątpliwości. W wyniku zamiany rzędami argumentu leżacego wyżej z leżącym niżej i kolejnym odejmowaniu go od wierszy poniższych możemy napotkać się na sytuację, w której program wypełni zerowy argument. Granicznym przypadkiem jest oczywiście zamiana i-tego wiersza z wierszem ostatnim( niezerowym),zatem wzór na ostatni niezerwoy element w danej kolumnie należy zmienić, tzn: $$ lastNonZeroInRow(lastNonZeroInColumn(row))= min(lastNonZeroInColumn(row)+l,n) =
@@ -98,7 +98,7 @@ W celu uniknięcia nadużycia zasobów pamięci wykorzystam addytywną tablicę 
 Wariant ten jest nieco bardziej kosztowany. Pojawia się koszt wyszukania maksymalnego elementu głownego o największej co do wartości bezwzględnej wartości w danej "zerowanej", bieżącej kolumnie. Wyszukanie go występuje w $lastNotZeroInColumn - i$ elementów, w przybliżeniu uznaję za $2l$.Wewnętrzna pętla przechodzi po $3l$ elementów każdego z wierszy. Ostatecznie koszt to $n2l(2l+3l)=10l^2n$, zatem jest około 5 razy bardziej złożony obliczeniowo niż algorytm bez wyboru elementu głownego. Mimo to algorytm jest wciąż asymptotycznie liniowy $
 \mathcal{O}(n)$
 \section{Zadanie 2}
-\subsection{Opis implementacji wraz z analizą złożoności algorytmu}
+\subsection{Opis standardowej procedury wraz z analizą złożoności algorytmu}
 \paragraph{Na czym polega rozkład LU} Rozkład LU polega na takim rozłożeniu macierzy A na czynniki L oraz U, gdzie obydwie macierze są macierzami trójkątnymi z tym, że U jest macierzą trójkątną górną, a L jest macierzą trójkątną dolną. Inaczej mówiąc rozkład LU polega na przedstawieniu macierzy A w potaci iloczynu $$A = LU$$ z zadanymi warunkami. Dodatkowo zakładamy, że wszystkie elementy diagonalne macierzy $L$ są równe 1.\\ Rozkład LU możemy otrzymać w wyniku przeprowadzenia elimiacji Gauss'a. Czynnik $U$ uzyskujemy w wyniki przekształcenia macierzy $A$ w skutek użycia powyższego algorytmu. Natomiast macierz $L$ możemy stworzyć wykorzystując czynniki $z$ użyte do zerowania macierzy. Wtedy zapisujemy mnożnik użyty w i-tym wierszu , w j-tej kolumnie w odpowiadającej jej komórce macierzy $L$. Do przeprowadzenia rozkładu musimy wykonać $\mathcal{O}(n^3)$ działań. Wykorzystanie rozkładu LU jest jednak zdecydowanie skuteczniejsze jeśli zamierzamy użyć tej samej macierzy przy wielu układach, wtedy algorytm eliminacji Gauss'a wykonany jest raz. A następnie układu dzielimy na dwa etapy:
 $$
 \left\{ 
@@ -107,8 +107,11 @@ Lz = b\\
 Ux = z\\
 \end{array} \right.
 $$
-A to kosztuje już $\mathcal{O}(n^2)$
-
+Koszt zostaje zredukowany do $\mathcal{O}(n^2)$
+\subsection{Opis implementacji wraz z analizą złożoności algorytmu}
+Algorytm wyznaczania rozkładu $LU$ przebiega sposób identyczny jak algorytm eliminacji Gauss'a z punktu $1.2$ z jedną modyfikacją. Mianowicie w miejscach, w których wcześniej zapisywaliśmy zera poniżej otrzymanej macierzy górnej trójkątnej teraz będziemy zapisywać ilorazy $z = \dfrac{a_{ij}}{a_{jj}} $. Następnie wykorzystamy je jako elementy macierzy $L$, a pozostałe zostaną elementami macierzy $U$. Złożoność w takim wypadku jest taka sama jak dla zmodyfikowanego algorytmu eliminacji Gauss'a, zatem $\mathcal{O}(n)$.
+\subsection{Algorytm z częściowym wyborem elementu głownego}
+Algorytm wyznaczania rozkładu $LU$ przebiega sposób identyczny jak algorytm eliminacji Gauss'a z punktu $1.3$ z jedną modyfikacją. Mianowicie w miejscach, w których wcześniej zapisywaliśmy zera poniżej otrzymanej macierzy górnej trójkątnej teraz będziemy zapisywać ilorazy $z = \dfrac{a_{ij}}{a_{jj}} $. Następnie wykorzystamy je jako elementy macierzy $L$, a pozostałe zostaną elementami macierzy $U$. Złożoność w takim wypadku jest taka sama jak dla zmodyfikowanego algorytmu eliminacji Gauss'a, zatem $\mathcal{O}(n)$.
 \section{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \section{Wnioski}
 \end{flushleft}

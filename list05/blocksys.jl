@@ -151,14 +151,14 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	        if (abs(max) < eps(Float64))
 					error("Column \"", k, "\" in matrix is osobliwa")
 			end
-
 			p[i], p[rowIndex] = p[rowIndex], p[i]
-	        z = A[i,p[j]]/A[i,p[i]]
+
+			z = A[i,p[j]]/A[i,p[i]]
 	        b[p[j]] -= z*b[p[i]]
 	        A[i,p[j]] = 0
 
 			for k in i+1:lastNonZeroInRow
-	        	A[k,j]-=g*A[k,i]
+	        	A[k,j]-=z*A[k,i]
 	        end
 		end
 	end
@@ -186,4 +186,74 @@ vec = getVec(vectorFile2)#save(file::String,x::Vector{Float64},n::Int64)
 println(gaussianElimination(n,l,matrix,vec))
 println(gaussianEliminationWithPivot(n,l,matrix,vec))
 
+"""
+Function decompse given matrix A as
+2 ingridients L and U.
+I am using gauss elimination alghoritm
+with exception that we save z in A[i,j].
+"""
+function decomposeMatrix(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+    x = Vector{Float64}(undef,n)
+    #gaussianElimination
+    for i = 1 : n-1
+        lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+        lastNonZeroInRow = Integer(min(i+l,n))
+
+        for j  in i+1 : lastNonZeroInColumn
+			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
+				error("ELement that belong to some matrix diagonal is equal to 0")
+				exit(0)
+			end
+
+			z = A[i,j]/A[i,i]
+            b[j] -= z*b[i]
+            A[i,j] = z # difference in code
+
+            for k in i+1:lastNonZeroInRow
+            	A[k,j] -= z*A[k,i]
+            end
+
+        end
+    end
+    return x
+end
+
+function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+	x = Vector{Float64}(undef,n)
+
+	#permutation array
+	p = collect(1:n)
+	for i in 1:n-1
+	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
+
+	    for j  in i+1 : lastNonZeroInColumn
+	        rowIndex = i
+	        max = abs(A[i,p[i]])
+
+	        for k in j:lastNonZeroInColumn
+	            if (abs(A[i,p[k]]) > max)
+	                rowIndex = k
+	                max = abs(A[k,p[k]])
+	            end
+	        end
+
+	        if (abs(max) < eps(Float64))
+					error("Column \"", k, "\" in matrix is osobliwa")
+			end
+			p[i], p[rowIndex] = p[rowIndex], p[i]
+
+			z = A[i,p[j]]/A[i,p[i]]
+	        b[p[j]] -= z*b[p[i]]
+	        A[i,p[j]] = z
+
+			for k in i+1:lastNonZeroInRow
+	        	A[k,j]-=z*A[k,i]
+	        end
+		end
+	end
+			return p
+end
+
+println("HALO")
 end
