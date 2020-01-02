@@ -221,7 +221,7 @@ end
 """
 Function decompose Matrix A to
 matrix L and U with choosen
-main element nameed pivot.
+main element named pivot.
 """
 function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
 	x = Vector{Float64}(undef,n)
