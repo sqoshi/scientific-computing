@@ -95,7 +95,7 @@ Function that uses gaussian eliminato and subsitute alghoritm
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
     x = Vector{Float64}(undef,n)
     #gaussianElimination
-    for i = 1 : n-1
+    for i = 1 : n
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
 
@@ -133,7 +133,7 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 
 	#permutation array
 	p = collect(1:n)
-	for i in 1:n-1
+	for i in 1 : n
 	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
 	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
 
@@ -261,4 +261,87 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 end
 
 println("HALO")
+
+function solveLU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+    x = Vector{Float64}(undef,n)
+    #gaussianElimination
+    for i = 1 : n-1
+        lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+        lastNonZeroInRow = Integer(min(i+l,n))
+
+        for j  in i+1 : lastNonZeroInColumn
+			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
+				error("ELement that belong to some matrix diagonal is equal to 0")
+				exit(0)
+			end
+
+			z = A[i,j]/A[i,i]
+            b[j] -= z*b[i]
+            A[i,j] = z # difference in code
+
+            for k in i+1:lastNonZeroInRow
+            	A[k,j] -= z*A[k,i]
+            end
+
+        end
+	end
+    #Substitute
+    for i in n:-1:1
+        sum = 0.0
+        lastNonZeroInRow = min(n,i+l)
+        for j in i+1 : lastNonZeroInRow
+            sum += A[j,i]* x[j]
+        end
+        x[i]=(b[i]-sum)/A[i,i]
+    end
+    return x
+end
+
+function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+		x = Vector{Float64}(undef,n)
+
+		#permutation array
+		p = collect(1:n)
+		for i in 1:n-1
+		    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
+		    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
+
+		    for j  in i+1 : lastNonZeroInColumn
+		        rowIndex = i
+		        max = abs(A[i,p[i]])
+
+		        for k in j:lastNonZeroInColumn
+		            if (abs(A[i,p[k]]) > max)
+		                rowIndex = k
+		                max = abs(A[k,p[k]])
+		            end
+		        end
+
+		        if (abs(max) < eps(Float64))
+						error("Column \"", k, "\" in matrix is osobliwa")
+				end
+				p[i], p[rowIndex] = p[rowIndex], p[i]
+
+				z = A[i,p[j]]/A[i,p[i]]
+		        b[p[j]] -= z*b[p[i]]
+		        A[i,p[j]] = z
+
+				for k in i+1:lastNonZeroInRow
+		        	A[k,j]-=z*A[k,i]
+		        end
+			end
+		end
+
+		#Substitute
+		for i in n:-1:1
+		    sum=0.0
+		    lastNonZeroInRow = Integer(min(2*l + l*floor((i+1)/l), n))
+		    for j in i+1 : lastNonZeroInRow
+		        sum+=A[j,p[i]]*x[j]
+		    end
+		    x[i]=(b[p[i]]-sum)/A[i,p[i]]
+		end
+		return x
+end
+
 end
