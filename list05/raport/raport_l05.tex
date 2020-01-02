@@ -116,7 +116,7 @@ Ux = z\\
 $$
 Koszt zostaje zredukowany do $\mathcal{O}(n^2)$. Tak więc rozwiązanie układu równań w sytuacji, kiedy mamy rozkład LU to rozwiązanie dwóch równań z macierzą trójkątną dolną oraz górną.\paragraph{Jak to osiągnąć?} Należy wykorzystać w odpowdni sposób znane już nam algorytmy podstawiania w przód i wstecz poznane już na pierwszej liście. Struktura naszych macirzy w obu przypadkach pozwala zredukować ilość wykonywanych operacji. \paragraph{Jak teraz będą wyglądać nasze ogranicznia?} Dla algorytmu podstawiania wstecz ograniczenie już wyznaczliśmy. Indeks ostatniej niezerowej kolumny w danym wierszu bez wyboru elementu głównego wyraża się wzorem $lastNotZeroInRow(row) = min(n, row+l)$, \\natomiast z wyborem częściowym elementu głownego wzoru $lastNotZeroInRow(row) = min \Big( n, \underline{2l}+l \Big \lfloor \dfrac{row+1}{l} \Big \rfloor \Big) $.  Pojawia się więc konieczność wyznaczenia wzoru dla algorytmu podstawiania w przód. Pierwszy niezerowy indeks kolumny to $firstNotZeroInRow = min \Big( n, l \Big \lfloor \dfrac{row-1}{l} \Big \rfloor \Big)$.
 \subsection{Analiza złożoności}
-W obu algorytamch w kolejnym wierszu wykonywane jest $\mathcal{O}(l)$ operacji. Wierszy jest n. Ostatecznie , gdy dany jest rozkład LU  macierzy rowiązanie układu równań wymaga wykonanaie $nl$, zatem $\mathcal{O}(n)$ operacji. 
+W kazdym kolejnym wierszu wykonywane jest wykonane $\mathcal{O}(l)$ operacji. Wierszy jest n. Ostatecznie , gdy dany jest rozkład LU  macierzy rowiązanie układu równań wymaga wykonanaie $nl$, zatem $\mathcal{O}(n)$ operacji. 
 \section{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
 \section{Wnioski}
 \end{flushleft}
