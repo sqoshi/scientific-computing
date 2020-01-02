@@ -297,11 +297,9 @@ function solveLU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vecto
     return x
 end
 
-function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
+function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},p::Vector{Int64})
 		x = Vector{Float64}(undef,n)
-
-		#permutation array
-		p = collect(1:n)
+		z = Array{Float64}(undef,n)
 		for i in 1:n-1
 		    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
 		    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
