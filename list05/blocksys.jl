@@ -50,8 +50,6 @@ function getMatrix(file::String)
 end
 
 
-println(getVec("b.txt"))
-println(getMatrix("A.txt"))
 
 """
 Function that saves Vector x in file x.txt.
@@ -74,17 +72,20 @@ Based on Sparse Array A, length of the vector n, and
 l should be bigger than or equal to 2 and it's
 size of the block Ak,Bk,Ck
 """
-function calculateVecb(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
-    if (l<2){ return}end
+function computeRSV(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
     b=zeros(Float64,n)
     x=ones(Float64,n)
     v=Int64(n/l)
-    for i in 1:n
-        lastNotZeroInCurrentRow = Integer(min(i+l,n))
-        for j in 1: lastNotZeroInCurrentRow
-            b[i]+=A[i,j]*x[j] #x[j] is useless cause anyway its (1,...,1)^T
-        end
-
+    for i in 1:v
+		min_idx = Integer(max(1,l-2 + (i-2)*l))
+		max_idx = i*l
+		for j in 1 : l
+			row = (i-1)*l+j
+			for k in min_idx : max_idx
+				b[row]+=A[k,row]
+			end
+			b[row] += i < v ? A[row+l,row] : 0
+		end
     end
     return b
 end
@@ -93,9 +94,9 @@ Function that uses gaussian eliminato and subsitute alghoritm
 
 """
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-    x = Vector{Float64}(undef,n)
+    x = Array{Float64}(undef,n)
     #gaussianElimination
-    for i = 1 : n
+    for i = 1 : n -1
         lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
         lastNonZeroInRow = Integer(min(i+l,n))
 
@@ -129,7 +130,7 @@ end
 
 
 function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-	x = Vector{Float64}(undef,n)
+	x = Array{Float64}(undef,n)
 
 	#permutation array
 	p = collect(1:n)
