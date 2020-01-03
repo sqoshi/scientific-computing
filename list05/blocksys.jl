@@ -175,7 +175,7 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	return x
 end
 
-println(gaussianEliminationWithPivot(n,l, getMatrix(matrixFile2)[3],getVec(vectorFile2)))
+
 
 """
 Function decompse given matrix A as
@@ -311,7 +311,7 @@ function LUpivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64, Int64}, b::Vect
 	p = decompositeMatrixWithPivot(n,l,A)
 	solveLUWithPivot(n,l,A,b,p)
 end
-
+#=
 #tests
 vectorFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/b.txt"
 matrixFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/A.txt"
@@ -343,5 +343,6 @@ println(solveLUWithPivot(n,l,matrix1,vec1,p))
 println(solveLUWithPivot(n,l,matrix1,vec1,decompositeMatrixWithPivot(n,l, matrix1)))
 
 println(solveLUWithPivot(n,l,getMatrix(matrixFile2)[3],getVec(vectorFile2),decompositeMatrixWithPivot(n,l, getMatrix(matrixFile2)[3])))
+=#
 
 end
