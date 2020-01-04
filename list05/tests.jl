@@ -20,14 +20,16 @@ function countError(n::Int, vector::Vector{Float64})
 end
 
 function test()
-    rozmiar = 20
+    rozmiar = 27
+    repeat = 20
     x=Array{Float64}(undef,rozmiar)
     y=Array{Float64}(undef,rozmiar)
     y1=Array{Float64}(undef,rozmiar)
     m=Array{Float64}(undef,rozmiar)
     m1=Array{Float64}(undef,rozmiar)
 
-    memory = 0
+    mem = 0
+    mem1 = 0
     a = 0
     a1 = 0
     i = 4
@@ -36,7 +38,7 @@ function test()
         j = 0
         time = 0.0
         time1 = 0.0
-        while j < 20
+        while j < repeat
             matrixgen.blockmat(i, 4, 1.0, "/home/piotr/Documents/scientific-computing/list05/A.txt")
             (n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
             A1 = deepcopy(A)
@@ -46,14 +48,16 @@ function test()
             a1 = @timed blocksys.LUpivot(n,l,A2, b)
             time += a[2]
             time1 += a1[2]
+            mem += a[3]
+            mem1 += a1[3]
             j += 1
         end
-        println(i, ";", time/50, ";", a[3])
+        println(i, ";", time/repeat, ";", a[3])
         x[it] = i
-        y[it] = time/50
-        y1[it] = time1/50
-        m[it] = a[3]
-        m1[it] = a1[3]
+        y[it] = time/repeat
+        y1[it] = time1/repeat
+        m[it] = mem/repeat
+        m1[it] = mem1/repeat
         it+=1
         i += 400
     end
@@ -66,8 +70,8 @@ function test()
     png("/home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png")
 end
 
-test()
 println("n;time;memory")
+test()
 println("-----------------all-----------------------------------------------------------------------------------\n")
 
 block_size = 4
@@ -82,6 +86,7 @@ function compare_error(sizes::Array{Int64})
         x = ones(Float64, n)
         Ap, bp = deepcopy(A), deepcopy(b)
         Ad, bd = deepcopy(A), deepcopy(b)
+
         result = @timed \(A, b)
         Alu, blu = deepcopy(A), deepcopy(b)
         Alup, blup = deepcopy(A), deepcopy(b)
@@ -130,12 +135,12 @@ compare_error(gen_sizes)
 
 
 
-function compare_gaussian_exist()
+function compare_gaussian_exist(sizes::Array{Int64})
     println("----------------------------------------------------------------------------------------------------------------------------")
    for size in sizes
        # Tests on given matrices
        n, l, A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/A.txt")
-       b = getVec("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/b.txt")
+       b = blocksys.getVec("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/b.txt")
        Ap, bp = deepcopy(A), deepcopy(b)
        Al, bl = deepcopy(A), deepcopy(b)
        Alu, blu = deepcopy(A), deepcopy(b)
@@ -152,7 +157,7 @@ function compare_gaussian_exist()
    end
 end
 
-
+compare_gaussian_exist(sizes1)
 
 
 
@@ -175,4 +180,3 @@ function compare_gaussian_generated()
 end
 end
 compare_gaussian_exist()
-compare_gaussian_generated()

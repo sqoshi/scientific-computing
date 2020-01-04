@@ -149,9 +149,9 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	            end
 	        end
 
-	        if (abs(max) < eps(Float64))
-					error("Column \"", i, "\" in matrix is osobliwa")
-			end
+	    #    if (abs(max) < eps(Float64))
+		#			error("Column \"", i, "\" in matrix is osobliwa")
+		#	end
 			p[i], p[rowIndex] = p[rowIndex], p[i]
 
 			z = A[i,p[j]]/A[i,p[i]]
