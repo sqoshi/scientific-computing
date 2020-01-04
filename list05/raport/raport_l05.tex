@@ -9,9 +9,9 @@ bottom=1.5in]{geometry}
 \usepackage{cancel}
 \usepackage{graphicx}
 \usepackage{grffile}
-
+\usepackage{caption}
 \setcounter{section}{-1}
-\graphicspath{{/home/piotr/Documents/scientific-computing/list04/exercise5/plots/}{/home/piotr/Documents/scientific-computing/list04/exercise6/plots/}}
+\graphicspath{{/home/piotr/Documents/scientific-computing/list05/plots/}}
 \DeclareUnicodeCharacter{2212}{-}
 
 \begin{document}
@@ -152,7 +152,41 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
  25000 & 8.714734067251055e-14  & 1.3797382568317616e-15  & 8.666083060971685e-14 & 9.326906914352039e-16 \\
 \hline
 \end{tabular}
-
+\newpage
+\subsection{Wykresy}
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_memory_size.png}
+    \caption{Some caption that is associated with the left figure.}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_time_size.png}
+    \caption{Some caption that is associated with the right figure.}
+  \end{minipage}
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_memory_size.png}
+    \caption{Some caption that is associated with the left figure.}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_time_size.png}
+    \caption{Some caption that is associated with the right figure.}
+  \end{minipage}
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_memory_size.png}
+    \caption{Some caption that is associated with the left figure.}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{gauss_time_size.png}
+    \caption{Some caption that is associated with the right figure.}
+  \end{minipage}
+\end{figure}
+\newpage
 \section{Wnioski}
 \end{flushleft}
 \end{document}
