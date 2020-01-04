@@ -5,7 +5,7 @@ using Test
 using LinearAlgebra
 using Plots
 
-plotly()
+gr()
 
 
 function countError(n::Int, vector::Vector{Float64})
@@ -20,31 +20,50 @@ function countError(n::Int, vector::Vector{Float64})
 end
 
 function test()
-    x=Array{Float64}(undef,20)
-    y=Array{Float64}(undef,20)
+    rozmiar = 20
+    x=Array{Float64}(undef,rozmiar)
+    y=Array{Float64}(undef,rozmiar)
+    y1=Array{Float64}(undef,rozmiar)
+    m=Array{Float64}(undef,rozmiar)
+    m1=Array{Float64}(undef,rozmiar)
 
     memory = 0
     a = 0
+    a1 = 0
     i = 4
     it=1
-    while i < 2000
+    while it <= rozmiar
         j = 0
         time = 0.0
-        while j < 50
+        time1 = 0.0
+        while j < 20
             matrixgen.blockmat(i, 4, 1.0, "/home/piotr/Documents/scientific-computing/list05/A.txt")
-            (A, n, l) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
-            b = blocksys.computeRSV(A, n, l)
-            a = @timed blocksys.LU(A, n, l, b)
+            (n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
+            A1 = deepcopy(A)
+            A2 = deepcopy(A)
+            b = blocksys.computeRSV(n, l, A)
+            a = @timed blocksys.LU(n, l, A1, b)
+            a1 = @timed blocksys.LUpivot(n,l,A2, b)
             time += a[2]
+            time1 += a1[2]
             j += 1
         end
         println(i, ";", time/50, ";", a[3])
         x[it] = i
-        y[it] = time
+        y[it] = time/50
+        y1[it] = time1/50
+        m[it] = a[3]
+        m1[it] = a1[3]
         it+=1
-        i += 100
+        i += 400
     end
-    plot(x, y, color="red",seriestype=:scatter, linewidth=2.0)
+    plot(x, y, color="red",seriestype=:scatter, linewidth=1.0, label="Lu")
+    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="LuWithPivot")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png")
+
+    plot(x, m, color="red",seriestype=:scatter, linewidth=1.0, label="Lu")
+    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="LuWithPivot")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png")
 end
 
 test()
