@@ -9,21 +9,16 @@ When loop face end of data program return current data.
 Loads the data line by line and returning new b vector.
 """
 function getVec(file::String)
-
-    b=zeros(0)
-
-    open(file) do f
-    line=(readline(f))
-    n=parse(Float64,line)
-
-    while !eof(f)
-        line=readline(f)
-        n=parse(Float64,line)
-        append!(b,n)
-    end
-
-    end
-    return b
+	open(file) do f
+			n = parse(Int64, readline(f))
+			b = Array{Float64}(undef,n)
+			iter = 1
+			while !eof(f)
+				b[iter] = parse(Float64, readline(f))
+				iter += 1
+			end
+			b
+		end
 end
 
 """
@@ -33,20 +28,25 @@ to saving 3 values by line index i1, index j1 and value not equal to 0 a[i1,j1] 
 Function return n,l,A when faces end of the file.
 """
 function getMatrix(file::String)
-    open(file) do f
-        line=split(readline(f))
-        n=parse(Int64,line[1])
-        l=parse(Int64,line[2])
-        A=spzeros(Float64,(n),(n))
-        while !eof(f)
-            line=split(readline(f))
-            i=parse(Int64,line[1])
-            j=parse(Int64,line[2])
-            a=parse(Float64,line[3])
-            A[i,j]=a
-        end
-        return n,l,A
-    end
+	open(file) do f
+		line = split(readline(f))
+		n = parse(Int64, line[1])
+		l = parse(Int64, line[2])
+		v = convert(Int64, n / l)
+		elements = v * l * l + (v - 1) * 2 * l + (v - 1) * l
+		I = Array{Int64}(undef,elements)
+		J = Array{Int64}(undef,elements)
+		V = Array{Float64}(undef,elements)
+		iter = 1
+		while !eof(f)
+			line = split(readline(f))
+			I[iter] = parse(Int64, line[2])
+			J[iter] = parse(Int64, line[1])
+			V[iter] = parse(Float64, line[3])
+			iter += 1
+		end
+		(n,l,sparse(I, J, V))
+	end
 end
 
 
@@ -73,59 +73,59 @@ l should be bigger than or equal to 2 and it's
 size of the block Ak,Bk,Ck
 """
 function computeRSV(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
-    b=zeros(Float64,n)
-    x=ones(Float64,n)
-    v=Int64(n/l)
-    for i in 1:v
-		min_idx = Integer(max(1,l-2 + (i-2)*l))
-		max_idx = i*l
-		for j in 1 : l
-			row = (i-1)*l+j
-			for k in min_idx : max_idx
-				b[row]+=A[k,row]
+	b = zeros(Float64, n)
+	v = convert(Int64, n/l)
+	for i in 1:v
+		min_idx = convert(Int64, max(l-2 + (i-2)*l, 1))
+		max_idx = i * l
+		for j in 1:l
+			row = (i-1)*l + j
+			for k in min_idx:max_idx
+				b[row] += A[k, row]
 			end
-			b[row] += i < v ? A[row+l,row] : 0
+			b[row] +=  i < v ? A[row+l, row] : 0
 		end
-    end
-    return b
+	end
+	b
 end
+
+
 """
 Function that uses gaussian eliminato and subsitute alghoritm
 
 """
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-    x = Array{Float64}(undef,n)
     #gaussianElimination
-    for i = 1 : n -1
-        lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
-        lastNonZeroInRow = Integer(min(i+l,n))
+    for i in 1 : n -1
+        lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
+        lastNonZeroInRow = convert(Int64,min(i+l,n))
 
         for j  in i+1 : lastNonZeroInColumn
-			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
-				error("ELement that belong to some matrix diagonal is equal to 0")
-				exit(0)
+			if abs(A[i,i]) < eps(Float64)
+				error("Leading coefficient is zero. Cannot perform standard gaussian elimination.
+				Use gaussian elimination with pivot instead.")
 			end
-
 			z = A[i,j]/A[i,i]
-            b[j] -= z*b[i]
             A[i,j] = 0
 
             for k in i+1:lastNonZeroInRow
-            	A[k,j] -= z*A[k,i]
+            	A[k,j] -=z*A[k,i]
             end
+			b[j] -= z*b[i]
 
         end
     end
+	    x = Array{Float64}(undef,n)
     #Substitute
     for i in n:-1:1
         sum = 0.0
-        lastNonZeroInRow = min(n,i+l)
+        lastNonZeroInRow = convert(Int64,min(i+l,n))
         for j in i+1 : lastNonZeroInRow
-            sum += A[j,i]* x[j]
+            sum +=A[j,i]*x[j]
         end
         x[i]=(b[i]-sum)/A[i,i]
     end
-    return x
+     x
 end
 
 
@@ -135,8 +135,8 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	#permutation array
 	p = collect(1:n)
 	for i in 1 : n-1
-	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
-	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
+	    lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
+	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
 
 	    for j  in i+1 : lastNonZeroInColumn
 	        rowIndex = i
@@ -150,7 +150,7 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	        end
 
 	        if (abs(max) < eps(Float64))
-					error("Column \"", k, "\" in matrix is osobliwa")
+					error("Column \"", i, "\" in matrix is osobliwa")
 			end
 			p[i], p[rowIndex] = p[rowIndex], p[i]
 
@@ -167,7 +167,7 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 	#Substitute
 	for i in n:-1:1
 	    sum=0.0
-	    lastNonZeroInRow = Integer(min(2*l + l*floor((i+1)/l), n))
+	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
 	    for j in i+1 : lastNonZeroInRow
 	        sum+=A[j,p[i]]*x[j]
 	    end
@@ -187,13 +187,13 @@ with exception that we save z in A[i,j].
 function decomposeMatrix(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64})
     #gaussianElimination
     for i = 1 : n-1
-        lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
-        lastNonZeroInRow = Integer(min(i+l,n))
+        lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
+        lastNonZeroInRow = convert(Int64,min(i+l,n))
 
         for j  in i+1 : lastNonZeroInColumn
 			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
 				error("ELement that belong to some matrix diagonal is equal to 0")
-				exit(0)
+				exit(1)
 			end
 
 			z = A[i,j]/A[i,i]
@@ -216,8 +216,8 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 	#permutation array
 	p = collect(1:n)
 	for i in 1:n-1
-	    lastNonZeroInColumn = Integer(min(l*floor(i/l)+l,n))
-	    lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
+	    lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
+	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
 
 	    for j  in i+1 : lastNonZeroInColumn
 	        rowIndex = i
@@ -226,12 +226,12 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 	        for k in j:lastNonZeroInColumn
 	            if (abs(A[i,p[k]]) > max)
 	                rowIndex = k
-	                max = abs(A[k,p[k]])
+	                max = abs(A[i,p[k]])
 	            end
 	        end
 
 	        if (abs(max) < eps(Float64))
-					error("Column \"", k, "\" in matrix is osobliwa")
+					error("Column \"", i, "\" in matrix is osobliwa")
 			end
 			p[i], p[rowIndex] = p[rowIndex], p[i]
 
@@ -243,6 +243,35 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 		end
 	end
 			return p
+end
+
+function LU_decomposition_with_pivot( n::Int64, l::Int64,A::SparseMatrixCSC{Float64, Int64})
+	p = collect(1:n)
+
+	for k in 1:n - 1
+		max_row = convert(Int64, min(l + l * floor((k+1) / l), n))
+		max_col = convert(Int64, min(2 * l + l * floor((k+1) / l), n))
+		for i in k + 1 : max_row
+			max_idx = k
+			max = abs(A[k,p[k]])
+			for x in i : max_row
+				if (abs(A[k,p[x]]) > max)
+					max_idx = x;
+					max = abs(A[k,p[x]])
+				end
+			end
+			if (abs(max) < eps(Float64))
+				error("Matrix is singular. Cannot perform LU decomposition.")
+			end
+			p[k], p[max_idx] = p[max_idx], p[k]
+			z = A[k,p[i]] / A[k,p[k]]
+			A[k,p[i]] = z
+			for j in k+1:max_col
+				A[j,p[i]] = A[j,p[i]] - z * A[j,p[k]]
+			end
+		end
+	end
+	return p
 end
 
 
@@ -263,7 +292,7 @@ function solveLU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vecto
     #Substitute forward
     for i in n:-1:1
         sum = 0.0
-        lastNonZeroInRow = min(n,i+l)
+        lastNonZeroInRow = convert(Int64,min(i+l,n))
         for j in i+1 : lastNonZeroInRow
             sum += A[j,i]* x[j]
         end
@@ -279,7 +308,7 @@ function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64},
 	#Substitute back
     for i in 1:n
         sum = 0.0
-        firstNonZeroInRow = Integer(max(l * floor((i - 1) / l) - 1, 1))
+        firstNonZeroInRow =  convert(Int64, max(l * floor((i-1) / l) - 1, 1))
         for j in firstNonZeroInRow : i-1
             sum += A[j,p[i]]*z[j]
         end
@@ -289,61 +318,24 @@ function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64},
     #Substitute forward
     for i in n:-1:1
         sum = 0.0
-        lastNonZeroInRow = Integer(min(l*floor(i/l)+2*l,n))
-        for j in i+1 : lastNonZeroInRow
+        lastNonZeroInRow = convert(Int64, min(2*l + l*floor((i+1)/l), n))
+        for j in i+1 : n
             sum += A[j,p[i]]*x[j]
         end
         x[i]=(z[i]-sum)/A[i,p[i]]
     end
-    return x
+     x
 end
 
-function LU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64, Int64}, b::Vector{Float64},pivot::Bool)
-	if (!pivot)
+function LU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64, Int64}, b::Vector{Float64})
 		decomposeMatrix(n,l,A)
 		solveLU(n,l,A,b)
-	else
-		p = decompositeMatrixWithPivot(n,l,A)
-		solveLUWithPivot(n,l,A,b,p)
-	end
 end
 
 function LUpivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64, Int64}, b::Vector{Float64})
 	p = decompositeMatrixWithPivot(n,l,A)
 	solveLUWithPivot(n,l,A,b,p)
 end
-#=
-#tests
-vectorFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/b.txt"
-matrixFile2 = "/home/piotr/Documents/scientific-computing/list05/Data/Data10000_1_1/A.txt"
-#function gaussianElimination(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64},b::Vector{Float64},LU::Bool)
-print("-----------------10000\n")
-n = getMatrix(matrixFile2)[1]
-l = getMatrix(matrixFile2)[2]
-matrix1 = getMatrix(matrixFile2)[3]
-matrix2 = getMatrix(matrixFile2)[3]
-vec1 = getVec(vectorFile2)
-vec2 = getVec(vectorFile2)
 
-println(decompositeMatrixWithPivot(n,l,getMatrix(matrixFile2)[3]))
-
-
-println(gaussianElimination(n,l, getMatrix(matrixFile2)[3],getVec(vectorFile2)))
-println(gaussianEliminationWithPivot(n,l, getMatrix(matrixFile2)[3],getVec(vectorFile2)))
-println(LU(n,l,getMatrix(matrixFile2)[3], getVec(vectorFile2),false))
-println(LU(n,l,getMatrix(matrixFile2)[3], getVec(vectorFile2),true))
-
-println(LUpivot(n,l,getMatrix(matrixFile2)[3],getVec(vectorFile2)))
-
-println(LUpivot(n,l,matrix1,vec1))
-
-
-p = decompositeMatrixWithPivot(n,l, matrix1)
-println(solveLUWithPivot(n,l,matrix1,vec1,p))
-
-println(solveLUWithPivot(n,l,matrix1,vec1,decompositeMatrixWithPivot(n,l, matrix1)))
-
-println(solveLUWithPivot(n,l,getMatrix(matrixFile2)[3],getVec(vectorFile2),decompositeMatrixWithPivot(n,l, getMatrix(matrixFile2)[3])))
-=#
 
 end

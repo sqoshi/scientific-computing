@@ -20,79 +20,140 @@ function countError(n::Int, vector::Vector{Float64})
 end
 
 function test()
+    x=Array{Float64}(undef,20)
+    y=Array{Float64}(undef,20)
+
     memory = 0
     a = 0
     i = 4
-    while i < 50000
+    it=1
+    while i < 2000
         j = 0
-        time = 0
+        time = 0.0
         while j < 50
             matrixgen.blockmat(i, 4, 1.0, "/home/piotr/Documents/scientific-computing/list05/A.txt")
             (A, n, l) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
             b = blocksys.computeRSV(A, n, l)
-            a = @timed blocksys.solveLU(A, n, l, b)
+            a = @timed blocksys.LU(A, n, l, b)
             time += a[2]
             j += 1
         end
         println(i, ";", time/50, ";", a[3])
-        i += 160;
+        x[it] = i
+        y[it] = time
+        it+=1
+        i += 100
     end
+    plot(x, y, color="red",seriestype=:scatter, linewidth=2.0)
 end
 
-print("-----------------16-----------------------------------------------------------------------------------\n")
-matrixFile1 = "/home/piotr/Documents/scientific-computing/list05/Data/Data16_1_1/A.txt"
-vectorFile1 = "/home/piotr/Documents/scientific-computing/list05/Data/Data16_1_1/b.txt"
-n = blocksys.getMatrix(matrixFile1)[1]
-l = blocksys.getMatrix(matrixFile1)[2]
-matrix =  blocksys.getMatrix(matrixFile1)[3]
-matrix_copy =  blocksys.getMatrix(matrixFile1)[3]
-vec =  blocksys.getVec(vectorFile1)
-println(matrix)
-println(vec)
-
-
-
-decomposeMatrix(n,l,A)
-solveLU(n,l,A,b)
-
-blocksys.computeRSV(n,l,matrix)
-xGE1 = @time  blocksys.gaussianElimination(n,l,matrix,vec)
-xGEC1 = @time  blocksys.gaussianEliminationWithPivot(n,l,matrix,vec)
-xLU1 = @time  blocksys.solveLU(n,l,matrix,vec)
-#xLUC1 = @time  blocksys.solveFromLUWithChoose(n,l,LUWithChoose(n,l,matrix)[1],vec,LUWithChoose(n,l,matrix)[2])
-x1 =  @time matrix \ vec
-countError(n,xGE1)
-countError(n,xGEC1)
-
-println("-----------------50000-----------------------------------------------------------------------------------\n")
-(n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data50000_1_1/A.txt")
-b = blocksys.getVec("/home/piotr/Documents/scientific-computing/list05/Data/Data50000_1_1/b.txt")
-p = blocksys.decompositeMatrixWithPivot(n, l, A)
-c = blocksys.solveLUWithPivot(n, l, A, b, p)
-println(c)
-
-
-
+test()
+println("n;time;memory")
 println("-----------------all-----------------------------------------------------------------------------------\n")
 
 block_size = 4
-sizes = [16, 10000, 50000]
+sizes1 = [16, 10000]
 gen_sizes = [60, 300, 1000, 5000, 25000]
-function compare_error()
+function compare_error(sizes::Array{Int64})
     for size in sizes
         # Tests on given matrices
-        n, l, A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/A.txt")
+        #n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/A.txt")
+        n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/generated/$size/A.txt")
         b = blocksys.computeRSV(n, l, A)
         x = ones(Float64, n)
         Ap, bp = deepcopy(A), deepcopy(b)
-
+        Ad, bd = deepcopy(A), deepcopy(b)
         result = @timed \(A, b)
+        Alu, blu = deepcopy(A), deepcopy(b)
+        Alup, blup = deepcopy(A), deepcopy(b)
 
-        gauss = @timed blocksys.gaussianElimination(n, l, Ap, bp)
+        gauss = @timed blocksys.gaussianElimination(n, l, Ad, bd)
         pivoted = @timed blocksys.gaussianEliminationWithPivot(n, l, Ap, bp)
 
-        println("//$n & $(norm(x - result[1]) / norm(result[1])) & $(norm(x - gauss[1]) / norm(gauss[1])) & $(norm(x - pivoted[1]) / norm(pivoted[1])) \\\\")
+        LU = @timed blocksys.LU(n,l,Alu,blu)
+        LUp = @timed blocksys.LUpivot(n,l,Alup,blup)
+
+
+        println("----------------------------------------------------------------------------------------------------\n")
+        println("-----------------------------------------Gauss-----------------------------------------------------------\n")
+        println("//$n & $(norm(x - gauss[1]) / norm(gauss[1])) & $(norm(x - pivoted[1]) / norm(pivoted[1])) \\\\")
+        println("-----------------------------------------LU-----------------------------------------------------------\n")
+        println("//$n & $(norm(x - LU[1]) / norm(LU[1])) & $(norm(x - LUp[1]) / norm(LUp[1])) \\\\")
+        println("----------------------------------------------------------------------------------------------------\n")
     end
 end
 
-compare_error()
+compare_error(gen_sizes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function compare_gaussian_exist()
+    println("----------------------------------------------------------------------------------------------------------------------------")
+   for size in sizes
+       # Tests on given matrices
+       n, l, A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/A.txt")
+       b = getVec("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/b.txt")
+       Ap, bp = deepcopy(A), deepcopy(b)
+       Al, bl = deepcopy(A), deepcopy(b)
+       Alu, blu = deepcopy(A), deepcopy(b)
+
+       result = @timed \(A, b)
+
+       gauss = @timed blocksys.gaussianElimination( n, l,A, b)
+       pivoted = @timed blocksys.gaussianEliminationWithPivot(n,l,Ap, bp)
+
+       println("Size: $size | (t) Gauss $(gauss[2]) s | (mem) Gauss: $(gauss[3]/2^20) MB | (t) pivoted: $(pivoted[2]) s | (mem) pivoted: $(pivoted[3]/2^20) MB")
+      # println("Size: $size | (t) Gauss $(lu[2]) s | (mem) Gauss: $(lu[3]/2^20) MB | (t) pivoted: $(pivlu[2]) s | (mem) pivoted: $(pivlu[3]/2^20) MB")
+
+       println("$size & $((result[2], 6)) & $((result[3]/2^20, 4)) & $((gauss[2], 6)) & $((gauss[3]/2^20, 4)) & $((pivoted[2], 6)) & $((pivoted[3]/2^20, 4)) \\\\")
+   end
+end
+
+
+
+
+
+
+
+function compare_gaussian_generated()
+   for size in gen_sizes
+       n, l, A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/generated/$(size)/A.txt")
+       b = blocksys.computeRSV(size, block_size,A)
+       Ap, bp = deepcopy(A), deepcopy(b)
+
+       result = @timed \(A, b)
+
+       gauss = @timed blocksys.gaussianElimination(n, l,A,b)
+       pivoted = @timed blocksys.gaussianEliminationWithPivot( n, l,Ap, bp)
+
+       println("$size & $((result[2], 6)) & $((result[3]/2^20, 4)) & $((gauss[2], 6)) & $((gauss[3]/2^20, 4)) & $((pivoted[2], 6)) & $((pivoted[3]/2^20, 4)) \\\\")
+   end
+    println("----------------------------------------------------------------------------------------------------------------------------")
+end
+end
+compare_gaussian_exist()
+compare_gaussian_generated()

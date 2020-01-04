@@ -15,6 +15,12 @@ bottom=1.5in]{geometry}
 \DeclareUnicodeCharacter{2212}{-}
 
 \begin{document}
+\pgfplotstabletypeset[
+  columns/freq/.style={column name=Frequency (Hz)},
+  columns/conc/.style={column name=Concrete},
+  columns/lino/.style={column name=Linoleum},
+]{2014-01-01.txt}
+
 \title{{Obliczenia Naukowe}}
 \author{Laboratorium Lista Nr 5\\Piotr Popis\\ 245162}
 \date{6 grudzień 2019}
@@ -117,7 +123,41 @@ $$
 Koszt zostaje zredukowany do $\mathcal{O}(n^2)$. Tak więc rozwiązanie układu równań w sytuacji, kiedy mamy rozkład LU to rozwiązanie dwóch równań z macierzą trójkątną dolną oraz górną.\paragraph{Jak to osiągnąć?} Należy wykorzystać w odpowdni sposób znane już nam algorytmy podstawiania w przód i wstecz poznane już na pierwszej liście. Struktura naszych macirzy w obu przypadkach pozwala zredukować ilość wykonywanych operacji. \paragraph{Jak teraz będą wyglądać nasze ogranicznia?} Dla algorytmu podstawiania wstecz ograniczenie już wyznaczliśmy. Indeks ostatniej niezerowej kolumny w danym wierszu bez wyboru elementu głównego wyraża się wzorem $lastNotZeroInRow(row) = min(n, row+l)$, \\natomiast z wyborem częściowym elementu głownego wzoru $lastNotZeroInRow(row) = min \Big( n, \underline{2l}+l \Big \lfloor \dfrac{row+1}{l} \Big \rfloor \Big) $.  Pojawia się więc konieczność wyznaczenia wzoru dla algorytmu podstawiania w przód. Pierwszy niezerowy indeks kolumny to $firstNotZeroInRow = min \Big( n, l \Big \lfloor \dfrac{row-1}{l} \Big \rfloor \Big)$.
 \subsection{Analiza złożoności}
 W kazdym kolejnym wierszu wykonywane jest wykonane $\mathcal{O}(l)$ operacji. Wierszy jest n. Ostatecznie , gdy dany jest rozkład LU  macierzy rowiązanie układu równań wymaga wykonanaie $nl$, zatem $\mathcal{O}(n)$ operacji. 
+\newpage
 \section{Wyniki eksperymentów porównujących zaimplementowane algorytmy dla danych testowych( tabele, wykresy) oraz interpretacja}
+Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeRSV, która generuje takie wektory prawych stron, aby rowiązaniem układu był wektor $(1,...,1)^T$. Następnie przy użyciu zaimplementowanych funkcji rowiązano układy $Ax=b$. Policzono czasy oraz błędy względne umieszczone wyniki poniżej.
+\subsection{Porównanie błędów względnych}
+\begin{tabular}{|l|l|l|l|l|}
+ \hline
+  n & Gauss & GaussWithPivot & LU & LUWithPivot \\
+ \hline
+ 16 & 5.45310538513047e-16  & 1.5023947200459153e-15 & 4.574031282344652e-15 & 5.064917260848194e-16 \\
+\hline
+ 1000 & 2.933079611128323e-14  & 1.0677494543754276e-15  & 2.9268827938365774e-14 & 9.009512859023695e-16 \\
+\hline
+ 5000 & 1.6706355850088109e-13  & 1.8192223023676713e-15  & 3.234648622831034e-13 & 9.052246850857828e-16 \\
+\hline
+ 10000 & 3.6738202190459565e-14  & 7.359706866734175e-16  & 3.6304377614821076e-14 & 4.46959574538234e-16 \\
+\hline
+ 25000 & 8.714734067251055e-14  & 1.3797382568317616e-15  & 8.666083060971685e-14 & 9.326906914352039e-16 \\
+\hline
+\end{tabular}
+\subsection{Porównanie złożoności czasowych}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Frequency (Hz)},
+    ylabel=Absorption Coefficient,
+    legend pos=south east,
+    legend entries={Concrete,Linoleum},
+    ]
+  \addplot table [x=freq,y=conc] {2014-01-01.txt};
+  \addplot table [x=freq,y=lino] {2014-01-01.txt};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
 \section{Wnioski}
 \end{flushleft}
 \end{document}
