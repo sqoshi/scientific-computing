@@ -50,7 +50,6 @@ function getMatrix(file::String)
 end
 
 
-
 """
 Function that saves Vector x in file x.txt.
 It's need the length on the file, meaining count of lines.
@@ -89,20 +88,19 @@ function computeRSV(n::Int64,l::Int64,A::SparseMatrixCSC{Float64,Int64})
 	b
 end
 
-
 """
 Function that uses gaussian eliminato and subsitute alghoritm
 
 """
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
     #gaussianElimination
-    for i in 1 : n -1
+    for i in 1 : n-1
         lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
         lastNonZeroInRow = convert(Int64,min(i+l,n))
 
         for j  in i+1 : lastNonZeroInColumn
 			if abs(A[i,i]) < eps(Float64)
-				error("Leading coefficient is zero. Cannot perform standard gaussian elimination.
+				error(" Cannot perform standard gaussian elimination.
 				Use gaussian elimination with pivot instead.")
 			end
 			z = A[i,j]/A[i,i]
@@ -129,52 +127,50 @@ function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int6
 end
 
 
+
+
 function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-	x = Array{Float64}(undef,n)
-
-	#permutation array
 	p = collect(1:n)
-	for i in 1 : n-1
-	    lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
-	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
 
-	    for j  in i+1 : lastNonZeroInColumn
-	        rowIndex = i
-	        max = abs(A[i,p[i]])
+		for k in 1:n - 1
+			max_row = convert(Int64, min(l + l * floor((k+1) / l), n))
+			max_col = convert(Int64, min(2*l + l*floor((k+1)/l), n))
 
-	        for k in j:lastNonZeroInColumn
-	            if (abs(A[i,p[k]]) > max)
-	                rowIndex = k
-	                max = abs(A[k,p[k]])
-	            end
-	        end
+			for i in k + 1:max_row
+				row_idx = k
+				max = abs(A[k,p[k]])
+				for x in i:max_row
+					if (abs(A[k,p[x]]) > max)
+						row_idx = x;
+						max = abs(A[k,p[x]])
+					end
+				end
+				if (abs(max) < eps(Float64))
+					error("All elements in column ", k, " are zeros")
+				end
+				p[k], p[row_idx] = p[row_idx], p[k]
+				z = A[k,p[i]] / A[k,p[k]]
+				A[k,p[i]] = 0
 
-	    #    if (abs(max) < eps(Float64))
-		#			error("Column \"", i, "\" in matrix is osobliwa")
-		#	end
-			p[i], p[rowIndex] = p[rowIndex], p[i]
-
-			z = A[i,p[j]]/A[i,p[i]]
-	        b[p[j]] -= z*b[p[i]]
-	        A[i,p[j]] = 0
-
-			for k in i+1:lastNonZeroInRow
-	        	A[k,p[j]]-=z*A[k,p[i]]
-	        end
+				for j in k + 1:max_col
+					A[j,p[i]] = A[j,p[i]] - z * A[j,p[k]]
+				end
+				b[p[i]] = b[p[i]] - z * b[p[k]]
+			end
 		end
-	end
 
-	#Substitute
-	for i in n:-1:1
-	    sum=0.0
-	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
-	    for j in i+1 : lastNonZeroInRow
-	        sum+=A[j,p[i]]*x[j]
-	    end
-	    x[i]=(b[p[i]]-sum)/A[i,p[i]]
+		x = Array{Float64}(undef,n)
+
+		for i in n:-1:1
+			suma = 0.0
+			limit = convert(Int64, min(2*l + l*floor((i+1)/l), n))
+			for j in i + 1:limit
+				suma += A[j,p[i]] * x[j]
+			end
+			x[i] = (b[p[i]] - suma) / A[i, p[i]]
+		end
+		x
 	end
-	return x
-end
 
 
 
@@ -231,7 +227,7 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 	        end
 
 	        if (abs(max) < eps(Float64))
-					error("Column \"", i, "\" in matrix is osobliwa")
+					error("Column \"", i, "\" has 0 as max, matrix is osobliwa")
 			end
 			p[i], p[rowIndex] = p[rowIndex], p[i]
 
@@ -319,7 +315,7 @@ function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64},
     for i in n:-1:1
         sum = 0.0
         lastNonZeroInRow = convert(Int64, min(2*l + l*floor((i+1)/l), n))
-        for j in i+1 : n
+        for j in i+1 : lastNonZeroInRow
             sum += A[j,p[i]]*x[j]
         end
         x[i]=(z[i]-sum)/A[i,p[i]]

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  4 JAN 2020 15:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  5 JAN 2020 01:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -22,6 +22,14 @@ File: size11.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count88
+\float@exts=\toks14
+\float@box=\box27
+\@float@everytoks=\toks15
+\@floatcapt=\box28
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
 
@@ -34,7 +42,7 @@ Package: geometry 2018/04/16 v5.8 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks14
+\KV@toks@=\toks16
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
@@ -46,9 +54,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count88
-\Gm@cntv=\count89
-\c@Gm@tempcnt=\count90
+\Gm@cnth=\count89
+\Gm@cntv=\count90
+\c@Gm@tempcnt=\count91
 \Gm@bindingoffset=\dimen103
 \Gm@wd@mp=\dimen104
 \Gm@odd@mp=\dimen105
@@ -57,7 +65,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutheight=\dimen108
 \Gm@layouthoffset=\dimen109
 \Gm@layoutvoffset=\dimen110
-\Gm@dimlist=\toks15
+\Gm@dimlist=\toks17
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2018/12/01 v2.17b AMS math features
@@ -69,7 +77,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
+\@emptytoks=\toks18
 \ex@=\dimen111
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -79,41 +87,41 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count91
+\inf@bad=\count92
 LaTeX Info: Redefining \frac on input line 223.
-\uproot@=\count92
-\leftroot@=\count93
+\uproot@=\count93
+\leftroot@=\count94
 LaTeX Info: Redefining \overline on input line 385.
-\classnum@=\count94
-\DOTSCASE@=\count95
+\classnum@=\count95
+\DOTSCASE@=\count96
 LaTeX Info: Redefining \ldots on input line 482.
 LaTeX Info: Redefining \dots on input line 485.
 LaTeX Info: Redefining \cdots on input line 606.
-\Mathstrutbox@=\box27
-\strutbox@=\box28
+\Mathstrutbox@=\box29
+\strutbox@=\box30
 \big@size=\dimen113
 LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
-\macc@depth=\count96
-\c@MaxMatrixCols=\count97
+\macc@depth=\count97
+\c@MaxMatrixCols=\count98
 \dotsspace@=\muskip10
-\c@parentequation=\count98
-\dspbrk@lvl=\count99
-\tag@help=\toks17
-\row@=\count100
-\column@=\count101
-\maxfields@=\count102
-\andhelp@=\toks18
+\c@parentequation=\count99
+\dspbrk@lvl=\count100
+\tag@help=\toks19
+\row@=\count101
+\column@=\count102
+\maxfields@=\count103
+\andhelp@=\toks20
 \eqnshift@=\dimen114
 \alignsep@=\dimen115
 \tagshift@=\dimen116
 \tagwidth@=\dimen117
 \totwidth@=\dimen118
 \lineht@=\dimen119
-\@envbody=\toks19
+\@envbody=\toks21
 \multlinegap=\skip44
 \multlinetaggap=\skip45
-\mathdisplay@stack=\toks20
+\mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 )
@@ -122,15 +130,15 @@ Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count103
-\calc@Bcount=\count104
+\calc@Acount=\count104
+\calc@Bcount=\count105
 \calc@Adimen=\dimen120
 \calc@Bdimen=\dimen121
 \calc@Askip=\skip46
 \calc@Bskip=\skip47
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count105
+\calc@Ccount=\count106
 \calc@Cskip=\skip48
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
@@ -140,7 +148,7 @@ LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count106
+\g_MT_multlinerow_int=\count107
 \l_MT_multwidth_dim=\dimen122
 \origjot=\skip49
 \l_MT_shortvdotswithinadjustabove_dim=\dimen123
@@ -222,26 +230,27 @@ Package caption3 Info: TeX engine: e-TeX on input line 64.
 \caption@parindent=\dimen136
 \caption@hangindent=\dimen137
 )
-\c@caption@flags=\count107
-\c@ContinuedFloat=\count108
+\c@caption@flags=\count108
+\c@ContinuedFloat=\count109
+Package caption Info: float package is loaded.
 )
    defining Unicode char U+2212 (decimal 8722)
 
 (./raport_l05.aux)
 \openout1 = `raport_l05.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -279,17 +288,17 @@ LaTeX Font Info:    ... okay on input line 17.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count109
+\scratchcounter=\count110
 \scratchdimen=\dimen138
-\scratchbox=\box29
-\nofMPsegments=\count110
-\nofMParguments=\count111
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count112
+\scratchbox=\box31
+\nofMPsegments=\count111
+\nofMParguments=\count112
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count113
 \MPscratchDim=\dimen139
-\MPnumerator=\count113
-\makeMPintoPDFobject=\count114
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count114
+\makeMPintoPDFobject=\count115
+\everyMPtoPDFconversion=\toks24
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -316,82 +325,132 @@ Package caption Info: End \AtBeginDocument code.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
-[7]
+Overfull \hbox (20.1888pt too wide) in paragraph at lines 157--172
+[]  
+ []
+
+</home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.png, i
+d=35, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.p
+ng Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.pn
+g>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
+s/stand_time_size.png  used on input line 177.
+(pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 182.
+
 </home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.png,
- id=39, 602.25pt x 401.5pt>
+ id=36, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size
 .png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.
 png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_memory_size.png  used on input line 160.
+s/gauss_memory_size.png  used on input line 185.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.png, i
-d=40, 602.25pt x 401.5pt>
+d=37, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.p
 ng Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.pn
 g>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_time_size.png  used on input line 165.
+s/gauss_time_size.png  used on input line 190.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size
-.png Graphic file (type png)
-<use /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.
-png>
+</home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png, id
+=38, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.pn
+g Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png
+>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_memory_size.png  used on input line 170.
+s/LU_memory_size.png  used on input line 195.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.p
-ng Graphic file (type png)
-<use /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.pn
-g>
+</home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png, id=3
+9, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png 
+Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_time_size.png  used on input line 175.
+s/LU_time_size.png  used on input line 200.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size
-.png Graphic file (type png)
-<use /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.
-png>
+</home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_size.p
+ng, id=40, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_s
+ize.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_si
+ze.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_memory_size.png  used on input line 180.
+s/GAUSSxLU_memory_size.png  used on input line 205.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.p
-ng Graphic file (type png)
-<use /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.pn
-g>
+</home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_size.png
+, id=41, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_siz
+e.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_size
+.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_time_size.png  used on input line 185.
+s/GAUSSxLU_time_size.png  used on input line 210.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
- [8 </home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.
-png> </home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.p
-ng>] [9] (./raport_l05.aux) ) 
+[7]
+</home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_memory
+_size.png, id=46, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_m
+emory_size.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_me
+mory_size.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
+s/GAUSSxLUpivoted_memory_size.png  used on input line 217.
+(pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
+</home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_time_s
+ize.png, id=47, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_t
+ime_size.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_ti
+me_size.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
+s/GAUSSxLUpivoted_time_size.png  used on input line 222.
+(pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
+ [8 </home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.pn
+g> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_mem
+ory_size.png> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU
+pivoted_time_size.png>] [9 </home/piotr/Documents/scientific-computing/list05/p
+lots/gauss_memory_size.png> </home/piotr/Documents/scientific-computing/list05/
+plots/gauss_time_size.png> </home/piotr/Documents/scientific-computing/list05/p
+lots/LU_memory_size.png> </home/piotr/Documents/scientific-computing/list05/plo
+ts/LU_time_size.png> </home/piotr/Documents/scientific-computing/list05/plots/G
+AUSSxLU_memory_size.png> </home/piotr/Documents/scientific-computing/list05/plo
+ts/GAUSSxLU_time_size.png>] [10] (./raport_l05.aux) ) 
 Here is how much of TeX's memory you used:
- 4504 strings out of 494443
- 68395 string characters out of 6174711
- 146930 words of memory out of 5000000
- 8129 multiletter control sequences out of 15000+600000
+ 4582 strings out of 494443
+ 71424 string characters out of 6174711
+ 149169 words of memory out of 5000000
+ 8203 multiletter control sequences out of 15000+600000
  14419 words of font info for 38 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
- 36i,9n,39p,1143b,419s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/piotr/.texlive2018/texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecsl1095.600pk> </home/piotr/.texlive2018/texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecbx1095.600pk> </home/piotr/.texlive2018/texmf-var/fonts/pk/lj
-four/jknappen/ec/ecrm1095.600pk> </home/piotr/.texlive2018/texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texlive2018/texmf-var/fonts/pk/
-ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.texlive2018/texmf-var/fonts/pk
-/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.texlive2018/texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on raport_l05.pdf (9 pages, 198365 bytes).
+ 36i,9n,39p,1143b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/piotr/.texlive2018
+/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsl1095.600pk> </home/piotr/.texlive201
+8/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/piotr/.texlive20
+18/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/piotr/.texlive2
+018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texlive
+2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.texliv
+e2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.texli
+ve2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb>
+Output written on raport_l05.pdf (10 pages, 291414 bytes).
 PDF statistics:
- 362 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 373 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
