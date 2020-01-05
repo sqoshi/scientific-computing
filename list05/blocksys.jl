@@ -48,7 +48,33 @@ function getMatrix(file::String)
 		(n,l,sparse(I, J, V))
 	end
 end
+function load_matrix(file :: String)
+	open(file) do f
+		line = split(readline(f))
 
+		# Read the size of matrix A
+		n = parse(Int64, line[1])
+
+		# Read the size of matrix Ak, Bk, Ck
+		l = parse(Int64, line[2])
+
+		# Declare empty sparse matrix of size n by n
+		A = spzeros(Float64, n, n)
+
+		while !eof(f)
+			line = split(readline(f))
+
+			# Read the indexes from file
+			i = parse(Int64, line[1])
+			j = parse(Int64, line[2])
+
+			# Read the value for given indexes
+			value = parse(Float64, line[3])
+			A[i, j] = value
+		end
+		return n,l,A
+	end
+end
 
 """
 Function that saves Vector x in file x.txt.

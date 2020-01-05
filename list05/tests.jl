@@ -27,7 +27,7 @@ end
 
 
 function test()
-    rozmiar = 100
+    rozmiar = 25
     repeat = 10
     x=Array{Float64}(undef,rozmiar)
     y=Array{Float64}(undef,rozmiar)
@@ -48,14 +48,14 @@ function test()
         time1 = 0.0
         while j < repeat
             matrixgen.blockmat(i, 4, 1.0, "/home/piotr/Documents/scientific-computing/list05/A.txt")
-            (n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
+            (n, l, A) = blocksys.load_matrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
             A1 = deepcopy(A)
             A2 = deepcopy(A)
             b = blocksys.computeRSV(n, l, A)
             b1 = deepcopy(b)
             b2 = deepcopy(b)
             a = @timed blocksys.gaussianElimination(n, l, A1,b1)
-            a1 = @timed blocksys.gaussianEliminationWithPivot(n,l,A2,b2)
+            a1 = @timed blocksys.LU(n,l,A2,b2)
             time += a[2]
             time1 += a1[2]
             mem += a[3]
@@ -69,16 +69,16 @@ function test()
         m[it] = mem/repeat
         m1[it] = mem1/repeat
         it+=1
-            i+=4
+            i+=1196
 
     end
     plot(x, y, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
-    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="pivot")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.png")
+    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_size.png")
 
     plot(x, m, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
-    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="pivot")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.png")
+    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_size.png")
 end
 test()
 function t()
