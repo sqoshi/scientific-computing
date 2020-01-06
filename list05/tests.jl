@@ -3,6 +3,7 @@
 include("/home/piotr/Documents/scientific-computing/list05/blocksys.jl")
 include("/home/piotr/Documents/scientific-computing/list05/matrixgen.jl")
 
+using Random
 using SparseArrays
 using Test
 using Plots
@@ -13,13 +14,15 @@ gr()
 
 
 function test_comparisions()
-    rozmiar = 30
+    rozmiar = 20
     repeat = 10
     x=Array{Float64}(undef,rozmiar)
     ca=Array{Float64}(undef,rozmiar)
     ca1=Array{Float64}(undef,rozmiar)
     ca2=Array{Float64}(undef,rozmiar)
     ca3=Array{Float64}(undef,rozmiar)
+
+
 
     a = 0
     a1 = 0
@@ -46,24 +49,30 @@ function test_comparisions()
             b2 = deepcopy(b)
             b3 = deepcopy(b)
             b4 = deepcopy(b)
+
+            blocksys.LU(n,l,A3,b3)
+            blocksys.LUpivot(n,l,A4,b4)
+            blocksys.gaussianElimination( n, l,A1, b1)
+            blocksys.gaussianEliminationWithPivot(n,l,A2, b2)
+
             a =  @timed blocksys.gaussianElimination(n, l, A1,b1)
             a1 =  @timed blocksys.gaussianEliminationWithPivot(n,l,A2,b2)
             a2 =  @timed blocksys.LU(n, l, A3,b3)
             a3 =  @timed blocksys.LUpivot(n,l,A4,b4)
-            c += a[3]
-            c1 += a1[3]
-            c2 += a2[3]
-            c3 += a3[3]
+            c += a[2]
+            c1 += a1[2]
+            c2 += a2[2]
+            c3 += a3[2]
             j += 1
             println(c, " ",c1, " ",c2, " ",c3)
         end
         println(i, ": ", c/repeat," : ", c1/repeat," : ", c2/repeat," : ", c3/repeat)
 
         x[it] = i
-        ca[it] = c/repeat/(2^20)
-        ca1[it] = c1/repeat/(2^20)
-        ca2[it] = c2/repeat/(2^20)
-        ca3[it] = c3/repeat/(2^20)
+        ca[it] = c/repeat
+        ca1[it] = c1/repeat
+        ca2[it] = c2/repeat
+        ca3[it] = c3/repeat
         it+=1
         i+=1196
 
@@ -72,7 +81,7 @@ function test_comparisions()
     plot!(x, ca1, color="blue",seriestype=:scatter, linewidth=1.0, label="gauss Pivot")
     plot!(x, ca2, color="yellow",seriestype=:scatter, linewidth=1.0, label="lu")
     plot!(x, ca3, color="green",seriestype=:scatter, linewidth=1.0, label="lu Pivot")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/all_memory_size.png")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/all2_time_size.png")
 
 end
 test_comparisions()
@@ -108,7 +117,7 @@ function test()
             b = blocksys.computeRSV(n, l, A)
             b1 = deepcopy(b)
             b2 = deepcopy(b)
-            blocksys.LU(n, l, A1,b1)
+            blocksys.gaussianEliminationWithPivot(n, l, A1,b1)
             blocksys.LUpivot(n,l,A2,b2)
             sparse(A1)
             sparse(A2)
@@ -144,18 +153,69 @@ test()
 
 
 function t()
+    rozmiar = 30
+    repeat = 10
+    x=Array{Float64}(undef,rozmiar)
+    y=Array{Float64}(undef,rozmiar)
+    y1=Array{Float64}(undef,rozmiar)
+    m=Array{Float64}(undef,rozmiar)
+    m1=Array{Float64}(undef,rozmiar)
+
+
+    mem = 0
+    mem1 = 0
     a = 0
-    (n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data10000/A.txt")
-    A1 = deepcopy(A)
+    a1 = 0
 
-    b = blocksys.computeRSV(n, l, A)
-    b1 = deepcopy(b)
+    i = 4
+    it=1
+    while it <= rozmiar
+        matrixgen.blockmat(i, 4, 1.0, "/home/piotr/Documents/scientific-computing/list05/A.txt")
+        (n, l, A) = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/A.txt")
+        j = 0
+        time = 0.0
+        time1 = 0.0
+        while j < repeat
+            A1 = deepcopy(A)
+            A2 = deepcopy(A)
+            b = blocksys.computeRSV(n, l, A)
+            b1 = deepcopy(shuffle(b))
+            b2 = deepcopy(b1)
 
-    a = @timed blocksys.LUpivot(n, l, A1,b1)
-    return a
+            #blocksys.gaussianElimination(n, l, A1,b1)
+        #    blocksys.LU(n,l,A2,b2)
+
+            a = @timed blocksys.gaussianElimination(n, l, A1,b1)
+            a1 = @timed blocksys.LU(n,l,A2,b2)
+
+            time += a[2]
+            time1 += a1[2]
+            mem += a[3]
+            mem1 += a1[3]
+            j += 1
+        end
+        println(i, ";", time/repeat, ";", a[3])
+        x[it] = i
+        y[it] = time/repeat
+        y1[it] = time1/repeat
+        m[it] = mem/repeat
+        m1[it] = mem1/repeat
+
+        it+=1
+        i+=1196
+
+    end
+    plot(x, y, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
+    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUB_time_size.png")
+
+    plot(x, m, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
+    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUB_memory_size.png")
+
 end
 
-println(t()[1])
+t()
 println("-----------------all-----------------------------------------------------------------------------------\n")
 println("n;time;memory")
 
