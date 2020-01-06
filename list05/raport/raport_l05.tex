@@ -215,8 +215,6 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
     \includegraphics[width=.8\linewidth]{GAUSSxLU2_time_size.png}
     \caption{Porównanie złożoności czasowej dla GaussianElimination i LU.}
   \end{minipage}
-\end{figure}
-\begin{figure}[H]
     \begin{minipage}[b]{.45\textwidth}
     \centering
     \includegraphics[width=.8\linewidth]{GAUSSxLUpivoted2_memory_size.png}
@@ -227,11 +225,24 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
     \includegraphics[width=.8\linewidth]{GAUSSxLUpivoted2_time_size.png}
     \caption{Porównanie złożoności czasowej dla GaussianElimination i LU z pivot.}
   \end{minipage}
-  \centering
+\centering
   \begin{minipage}[b]{.45\textwidth}
-    \centering
     \includegraphics[width=.8\linewidth]{all2_memory_size.png}
     \caption{Porównanie złożoności pamięciowej dla wszystkich z algorytmów.}
+  \end{minipage}
+  \begin{minipage}[b]{.45\textwidth}
+\centering
+    \includegraphics[width=.8\linewidth]{all2_time_size.png}
+    \caption{Porównanie złożoności czasowej dla wszystkich z algorytmów.}
+  \end{minipage}
+  \end{figure}
+ \centering
+\begin{figure}[!htbp]
+\centering
+\begin{minipage}[b]{.45\textwidth}
+\centering
+    \includegraphics[width=.8\linewidth]{GAUSSxLUpivB_time_size.png}
+    \caption{Eksperyment dla tej samej macierzy A a innego b.}
   \end{minipage}
 \end{figure}
 \begin{flushleft}
@@ -254,11 +265,14 @@ Ze względu na wyszukiwanie maksymalnego elementu w każdej kolumnie eliminacja 
 \paragraph{Figure 6}
 Dla algorytmu LU z i bez pivot analogicznie jak dla eliminacji Gauss'a algorytm wykorzustujący pivot jest stanowczo wolniejszy, gorszy od rozkładu LU bez wyboru elementu głownego.
 \paragraph{Figure 8}
-Algorytm bez wyboru elementu głownego dla rozkładu LU i eliminacji Gaussa'a w przypadku mnożenia losowej(generated: matrixgen.blokmat) macierzy przez wektor RSV wyznacznego przez funkcję $cmputeRSV$ ma niemalże taką samą złożoność czasową.
+Algorytm bez wyboru elementu głownego dla rozkładu LU w przypadku mnożenia losowej(generated: matrixgen.blokmat) macierzy przez wektor RSV wyznacznego przez funkcję $cmputeRSV$  jest wolniejszy od eliminacji Gauss'a bez pivota. ZŁożoność czasowa jest względem kwadratowej rozkładu LU liniowa dla Gaussa.Znaczy to, że gauss jest znacznie szybszy od rozkładu LU.
 \paragraph{Figure 10}
-W przypadku wykorzystania elementu głównego dla sytaucji z paragrafu Figure 8 algorytm rozkładu Lu okazauje się znacznie szybszy.
-\paragraph{Figure 11}
-Wszystkie pozostałe wykresy pokazują zależności ich złożoność pamięciowej. Jednak To wykres nr 11 grupuje je wszystkie. Można zauważyć, że Gauss bez pivota jest w tym przypadku najbardziej oszczędny. Na drugim miejscu egzekwo znalazł się rozkład LU bez pivot oraz Gauss z pivot, Gauss z pivot znalazł się tutaj ze względu na tablicę permutacji p, natomiast LU bez pivot przechowuje mnożniki z. Ostatni, a więc najbarardziej "pamięciożerny" jest z prostych przyczyn LU z pivotem. Zapamiętuje on tablicę permutacji p oraz mnożniki z co czynni go najbardziej kosztownym.
+W stosunku do rozkładu LU z pivot, elieminacja gaussa przebiega znacznie szybciej i zachowuje liniowość.
+\paragraph{Figure 11 ,3 ,5 ,7, 9}
+ To wykres nr 11 grupuje je wszystkie. Można zauważyć, że Gauss bez pivota jest w tym przypadku najbardziej oszczędny. Na drugim miejscu egzekwo znalazł się rozkład LU bez pivot oraz Gauss z pivot, Gauss z pivot znalazł się tutaj ze względu na tablicę permutacji p, natomiast LU bez pivot przechowuje mnożniki z. Ostatni, a więc najbarardziej "pamięciożerny" jest z prostych przyczyn LU z pivotem. Zapamiętuje on tablicę permutacji p oraz mnożniki z co czynni go najbardziej kosztownym.
+\paragraph{Figure 12}
+Jeśli chcemy zbadać złożoność czasową dla wszystkich algorytmów musimy odwołać się do wszystkich poprzednich. Możemy zauważyć, że najbardziej czasochłonny jest rozkład lU z pivot następnie możemy zauważyć, że pozostałe  algorytmy są liniowe. Jednak warto to stwierdzenie skonsultować z pozostałymi wykresami, które dają szerszy wachlarz interpretacji.
+\paragraph{Podsumowanie} Sekcja wyniki rzeczywiście prezentuje , że złożoność obliczeniowa zaimplementowanych metod jest liniowa. Widać również, że algorytmy wykorzystujące częściowy wybór elementu głównego są bardziej czasochłonne oraz pamięciożerne. Śą mimo wszystko bezużyteczne już w sytuacji pojawienia się jakiegoś elementu mniejszego niż eps(). W takim przypadku algorytmy wykorzystujące pivot dają radę. Problem występuje dopiero, gdy macierz jest osobliwa. Według wyników rozkład Lu z pivotem jest najgorszy pod każdym względem, jednak jeśli wykorzystywalibyśmy jedną macierz, a to wektor prawych stron byłby zmieniany lub zaburzany algorytm okazuje się wyjątkowo wygodny$Figure 13$ . Wtedy kosztowny zabieg wyznaczenia rozkładu wykonujemy tylko raz, co w przpadku eliminacji nie jest możliwe, musi on stale wyliczać macierz trójkątną górną. Warto też wspomnieć o samej różnicy między algorytmem uwzględniającym postać macierzy, a standardowym. Dzięki modyfikacjom uzyskaliśmy złożoność liniową z sześciennej! Dzięki temu możemy operować na macierzach o niesamowicie wielkich rozmiarach. Dla macierzy o rozmiarze 50 mamy aż $2^{50}$ elementów! Jak widać standardowa metoda liczyła już dośc długo dla macierzy o wymiarach 100x100, tak więć nasze modyfikacje zmieniły możliwości istniejącego już algorytmu diametralnie!\\
 \end{flushleft}
 \end{flushleft}
 \end{document}
