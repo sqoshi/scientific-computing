@@ -108,12 +108,12 @@ function test()
             b = blocksys.computeRSV(n, l, A)
             b1 = deepcopy(b)
             b2 = deepcopy(b)
-            blocksys.gaussianElimination(n, l, A1,b1)
-            blocksys.gaussianEliminationWithPivot(n,l,A2,b2)
+            blocksys.LU(n, l, A1,b1)
+            blocksys.LUpivot(n,l,A2,b2)
             sparse(A1)
             sparse(A2)
-            a = @timed blocksys.gaussianElimination(n, l, A1,b1)
-            a1 = @timed blocksys.gaussianEliminationWithPivot(n,l,A2,b2)
+            a = @timed blocksys.gaussianEliminationWithPivot(n, l, A1,b1)
+            a1 = @timed blocksys.LUpivot(n,l,A2,b2)
             time += a[2]
             time1 += a1[2]
             mem += a[3]
@@ -132,12 +132,12 @@ function test()
 
     end
     plot(x, y, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
-    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="Pivot")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/gauss2_time_size.png")
+    plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted2_time_size.png")
 
     plot(x, m, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
-    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="Pivot")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/gauss2_memory_size.png")
+    plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted2_memory_size.png")
 
 end
 test()
@@ -173,19 +173,17 @@ function compare_error(sizes::Array{Int64})
         x = ones(Float64, n)
         Ap, bp = deepcopy(A), deepcopy(b)
         Ad, bd = deepcopy(A), deepcopy(b)
-        blocksys.LU(n,l,Al,bl)
-        blocksys.LUpivot(n,l,Alu,blu)
-        blocksys.gaussianElimination( n, l,Ad, bd)
-        blocksys.gaussianEliminationWithPivot(n,l,Ap, bp)
-        result = @timed \(A, b)
+        Al, bl = deepcopy(A), deepcopy(b)
         Alu, blu = deepcopy(A), deepcopy(b)
-        Alup, blup = deepcopy(A), deepcopy(b)
+
+
+        result = @timed \(A, b)
 
         gauss = @timed blocksys.gaussianElimination(n, l, Ad, bd)
         pivoted = @timed blocksys.gaussianEliminationWithPivot(n, l, Ap, bp)
 
-        LU = @timed blocksys.LU(n,l,Alu,blu)
-        LUp = @timed blocksys.LUpivot(n,l,Alup,blup)
+        LU = @timed blocksys.LU(n,l,Al,bl)
+        LUp = @timed blocksys.LUpivot(n,l,Alu,blu)
 
 
         println("----------------------------------------------------------------------------------------------------\n")
@@ -197,7 +195,7 @@ function compare_error(sizes::Array{Int64})
     end
 end
 
-compare_error(sizes1)
+compare_error(gen_sizes)
 
 
 
