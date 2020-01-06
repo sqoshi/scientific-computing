@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  5 JAN 2020 17:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.25)  6 JAN 2020 01:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -325,7 +325,7 @@ Package caption Info: End \AtBeginDocument code.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
-Overfull \hbox (20.1888pt too wide) in paragraph at lines 157--172
+Overfull \hbox (20.1888pt too wide) in paragraph at lines 158--173
 []  
  []
 
@@ -336,121 +336,147 @@ ng Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.pn
 g>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/stand_time_size.png  used on input line 177.
+s/stand_time_size.png  used on input line 178.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 182.
-
+</home/piotr/Documents/scientific-computing/list05/plots/all_comparisions_size.
+png, id=36, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/all_comparisions_
+size.png Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/all_comparisions_s
+ize.png>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
+s/all_comparisions_size.png  used on input line 183.
+(pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.png,
- id=36, 602.25pt x 401.5pt>
+ id=37, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size
 .png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_size.
 png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_memory_size.png  used on input line 185.
+s/gauss_memory_size.png  used on input line 188.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.png, i
-d=37, 602.25pt x 401.5pt>
+d=38, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.p
 ng Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/gauss_time_size.pn
 g>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/gauss_time_size.png  used on input line 190.
+s/gauss_time_size.png  used on input line 193.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png, id
-=38, 602.25pt x 401.5pt>
+=39, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.pn
 g Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.png
 >
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/LU_memory_size.png  used on input line 195.
+s/LU_memory_size.png  used on input line 198.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
-</home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png, id=3
-9, 602.25pt x 401.5pt>
+</home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png, id=4
+0, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png 
 Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/LU_time_size.png  used on input line 200.
+s/LU_time_size.png  used on input line 203.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--206
+[][] []
+ []
+
 </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_size.p
-ng, id=40, 602.25pt x 401.5pt>
+ng, id=41, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_s
 ize.png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_si
 ze.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/GAUSSxLU_memory_size.png  used on input line 205.
+s/GAUSSxLU_memory_size.png  used on input line 210.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_size.png
-, id=41, 602.25pt x 401.5pt>
+, id=42, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_siz
 e.png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time_size
 .png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/GAUSSxLU_time_size.png  used on input line 210.
+s/GAUSSxLU_time_size.png  used on input line 215.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 [7]
 </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_memory
-_size.png, id=46, 602.25pt x 401.5pt>
+_size.png, id=47, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_m
 emory_size.png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_me
 mory_size.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/GAUSSxLUpivoted_memory_size.png  used on input line 217.
+s/GAUSSxLUpivoted_memory_size.png  used on input line 222.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
 </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_time_s
-ize.png, id=47, 602.25pt x 401.5pt>
+ize.png, id=48, 602.25pt x 401.5pt>
 File: /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_t
 ime_size.png Graphic file (type png)
 <use /home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_ti
 me_size.png>
 Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
-s/GAUSSxLUpivoted_time_size.png  used on input line 222.
+s/GAUSSxLUpivoted_time_size.png  used on input line 227.
 (pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
- [8 </home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.pn
-g> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivoted_mem
-ory_size.png> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU
-pivoted_time_size.png>] [9 </home/piotr/Documents/scientific-computing/list05/p
-lots/gauss_memory_size.png> </home/piotr/Documents/scientific-computing/list05/
-plots/gauss_time_size.png> </home/piotr/Documents/scientific-computing/list05/p
-lots/LU_memory_size.png> </home/piotr/Documents/scientific-computing/list05/plo
-ts/LU_time_size.png> </home/piotr/Documents/scientific-computing/list05/plots/G
-AUSSxLU_memory_size.png> </home/piotr/Documents/scientific-computing/list05/plo
-ts/GAUSSxLU_time_size.png>] [10] (./raport_l05.aux) ) 
+
+Underfull \hbox (badness 1052) in paragraph at lines 228--228
+[]\T1/cmr/m/n/10.95 Figure 10: |Porów-nanie zªo»ono±ci cza-sowej dla
+ []
+
+</home/piotr/Documents/scientific-computing/list05/plots/all_memory_size.png, i
+d=49, 602.25pt x 401.5pt>
+File: /home/piotr/Documents/scientific-computing/list05/plots/all_memory_size.p
+ng Graphic file (type png)
+<use /home/piotr/Documents/scientific-computing/list05/plots/all_memory_size.pn
+g>
+Package pdftex.def Info: /home/piotr/Documents/scientific-computing/list05/plot
+s/all_memory_size.png  used on input line 233.
+(pdftex.def)             Requested size: 196.56242pt x 131.04344pt.
+[8 </home/piotr/Documents/scientific-computing/list05/plots/stand_time_size.png
+> </home/piotr/Documents/scientific-computing/list05/plots/all_comparisions_siz
+e.png> </home/piotr/Documents/scientific-computing/list05/plots/gauss_memory_si
+ze.png> </home/piotr/Documents/scientific-computing/list05/plots/gauss_time_siz
+e.png> </home/piotr/Documents/scientific-computing/list05/plots/LU_memory_size.
+png> </home/piotr/Documents/scientific-computing/list05/plots/LU_time_size.png>
+] [9 </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_memory_s
+ize.png> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLU_time
+_size.png> </home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpiv
+oted_memory_size.png> </home/piotr/Documents/scientific-computing/list05/plots/
+GAUSSxLUpivoted_time_size.png> </home/piotr/Documents/scientific-computing/list
+05/plots/all_memory_size.png>] [10] (./raport_l05.aux) ) 
 Here is how much of TeX's memory you used:
- 4582 strings out of 494443
- 71424 string characters out of 6174711
- 149169 words of memory out of 5000000
- 8203 multiletter control sequences out of 15000+600000
+ 4590 strings out of 494443
+ 72094 string characters out of 6174711
+ 150169 words of memory out of 5000000
+ 8211 multiletter control sequences out of 15000+600000
  14419 words of font info for 38 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
- 36i,9n,39p,1143b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/piotr/.texlive2018
-/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsl1095.600pk> </home/piotr/.texlive201
-8/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/piotr/.texlive20
-18/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/piotr/.texlive2
-018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texlive
-2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.texliv
-e2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.texli
-ve2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy8.pfb>
-Output written on raport_l05.pdf (10 pages, 292897 bytes).
+ 36i,9n,39p,1143b,423s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/piotr/.texlive2
+018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsl1095.600pk> </home/piotr/.texlive
+2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/piotr/.texliv
+e2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/piotr/.texli
+ve2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texl
+ive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.tex
+live2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.te
+xlive2018/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy8.pfb>
+Output written on raport_l05.pdf (10 pages, 338633 bytes).
 PDF statistics:
- 374 PDF objects out of 1000 (max. 8388607)
+ 381 PDF objects out of 1000 (max. 8388607)
  73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

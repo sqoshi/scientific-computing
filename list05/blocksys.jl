@@ -1,5 +1,6 @@
 #Piotr Popis
 #245162
+__precompile__()
 module blocksys
 using SparseArrays
 export getVec,getMatrix,save,calculateVecb,gaussianElimination
@@ -45,34 +46,7 @@ function getMatrix(file::String)
 			V[iter] = parse(Float64, line[3])
 			iter += 1
 		end
-		(n,l,sparse(I, J, V))
-	end
-end
-function load_matrix(file :: String)
-	open(file) do f
-		line = split(readline(f))
-
-		# Read the size of matrix A
-		n = parse(Int64, line[1])
-
-		# Read the size of matrix Ak, Bk, Ck
-		l = parse(Int64, line[2])
-
-		# Declare empty sparse matrix of size n by n
-		A = spzeros(Float64, n, n)
-
-		while !eof(f)
-			line = split(readline(f))
-
-			# Read the indexes from file
-			i = parse(Int64, line[1])
-			j = parse(Int64, line[2])
-
-			# Read the value for given indexes
-			value = parse(Float64, line[3])
-			A[i, j] = value
-		end
-		return n,l,A
+		(n,l,SparseArrays.sparse(I, J, V))
 	end
 end
 
@@ -119,32 +93,36 @@ Function that uses gaussian eliminato and subsitute alghoritm
 
 """
 function gaussianElimination(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
-    #gaussianElimination
+	c=0
+	x = Array{Float64}(undef,n)
+	#gaussianElimination
     for i in 1 : n-1
         lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
         lastNonZeroInRow = convert(Int64,min(i+l,n))
-
+		c+=1
         for j  in i+1 : lastNonZeroInColumn
-			if abs(A[i,i]) < eps(Float64)
-				error(" Cannot perform standard gaussian elimination.
-				Use gaussian elimination with pivot instead.")
+			c+=1
+			if (abs(A[i,i]) < eps(Float64))
+				error(" Use gaussian elimination with pivot.")
 			end
 			z = A[i,j]/A[i,i]
-            A[i,j] = 0
 
             for k in i+1:lastNonZeroInRow
+				c+=1
             	A[k,j] -=z*A[k,i]
             end
 			b[j] -= z*b[i]
 
         end
     end
-	    x = Array{Float64}(undef,n)
+
     #Substitute
     for i in n:-1:1
+		c+=1
         sum = 0.0
         lastNonZeroInRow = convert(Int64,min(i+l,n))
         for j in i+1 : lastNonZeroInRow
+			c+=1
             sum +=A[j,i]*x[j]
         end
         x[i]=(b[i]-sum)/A[i,i]
@@ -157,28 +135,34 @@ end
 
 function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
 	p = collect(1:n)
-
+	c=0
 		for k in 1:n - 1
-			max_row = convert(Int64, min(l + l * floor((k+1) / l), n))
-			max_col = convert(Int64, min(2*l + l*floor((k+1)/l), n))
+			lastNonZeroInColumn = convert(Int64, min(l + l * floor((k+1) / l), n))
+			lastNonZeroInRow = convert(Int64, min(2*l + l*floor((k+1)/l), n))
+			c+=1
 
-			for i in k + 1:max_row
+			for i in k + 1:lastNonZeroInColumn
+				c+=1
 				row_idx = k
 				max = abs(A[k,p[k]])
-				for x in i:max_row
+				for x in i:lastNonZeroInColumn
+					c+=1
 					if (abs(A[k,p[x]]) > max)
+						c+=1
 						row_idx = x;
 						max = abs(A[k,p[x]])
 					end
 				end
 				if (abs(max) < eps(Float64))
-					error("All elements in column ", k, " are zeros")
+					c+=1
+					error("All elements in column ", k, " are almost 0")
 				end
 				p[k], p[row_idx] = p[row_idx], p[k]
 				z = A[k,p[i]] / A[k,p[k]]
 				A[k,p[i]] = 0
 
-				for j in k + 1:max_col
+				for j in k + 1:lastNonZeroInRow
+					c+=1
 					A[j,p[i]] = A[j,p[i]] - z * A[j,p[k]]
 				end
 				b[p[i]] = b[p[i]] - z * b[p[k]]
@@ -189,8 +173,10 @@ function gaussianEliminationWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Flo
 
 		for i in n:-1:1
 			suma = 0.0
+			c+=1
 			limit = convert(Int64, min(2*l + l*floor((i+1)/l), n))
 			for j in i + 1:limit
+				c+=1
 				suma += A[j,p[i]] * x[j]
 			end
 			x[i] = (b[p[i]] - suma) / A[i, p[i]]
@@ -208,11 +194,14 @@ with exception that we save z in A[i,j].
 """
 function decomposeMatrix(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64})
     #gaussianElimination
+	c=0
     for i = 1 : n-1
+		c+=1
         lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
         lastNonZeroInRow = convert(Int64,min(i+l,n))
 
         for j  in i+1 : lastNonZeroInColumn
+			c+=1
 			if (abs(A[i,i]) < eps(Float64)) #from exercises prof. Zieliński
 				error("ELement that belong to some matrix diagonal is equal to 0")
 				exit(1)
@@ -222,11 +211,13 @@ function decomposeMatrix(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64})
             A[i,j] = z # difference in code
 
             for k in i+1:lastNonZeroInRow
+				c+=1
             	A[k,j] -= z*A[k,i]
             end
 
         end
     end
+
 end
 
 """
@@ -237,16 +228,21 @@ main element named pivot.
 function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64})
 	#permutation array
 	p = collect(1:n)
+	c=0
 	for i in 1:n-1
+		c+=1
 	    lastNonZeroInColumn = convert(Int64, min(l + l * floor((i+1) / l), n))
 	    lastNonZeroInRow = convert(Int64, min(2l + l * floor((i+1) / l), n))
 
 	    for j  in i+1 : lastNonZeroInColumn
+			c+=1
 	        rowIndex = i
 	        max = abs(A[i,p[i]])
 
 	        for k in j:lastNonZeroInColumn
+				c+=1
 	            if (abs(A[i,p[k]]) > max)
+					c+=1
 	                rowIndex = k
 	                max = abs(A[i,p[k]])
 	            end
@@ -260,6 +256,7 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 			z = A[i,p[j]]/A[i,p[i]]
 	        A[i,p[j]] = z
 			for k in i+1:lastNonZeroInRow
+				c+=1
 	        	A[k,p[j]]-=z*A[k,p[i]]
 	        end
 		end
@@ -267,45 +264,19 @@ function decompositeMatrixWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float
 			return p
 end
 
-function LU_decomposition_with_pivot( n::Int64, l::Int64,A::SparseMatrixCSC{Float64, Int64})
-	p = collect(1:n)
-
-	for k in 1:n - 1
-		max_row = convert(Int64, min(l + l * floor((k+1) / l), n))
-		max_col = convert(Int64, min(2 * l + l * floor((k+1) / l), n))
-		for i in k + 1 : max_row
-			max_idx = k
-			max = abs(A[k,p[k]])
-			for x in i : max_row
-				if (abs(A[k,p[x]]) > max)
-					max_idx = x;
-					max = abs(A[k,p[x]])
-				end
-			end
-			if (abs(max) < eps(Float64))
-				error("Matrix is singular. Cannot perform LU decomposition.")
-			end
-			p[k], p[max_idx] = p[max_idx], p[k]
-			z = A[k,p[i]] / A[k,p[k]]
-			A[k,p[i]] = z
-			for j in k+1:max_col
-				A[j,p[i]] = A[j,p[i]] - z * A[j,p[k]]
-			end
-		end
-	end
-	return p
-end
 
 
 function solveLU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64})
     x = Array{Float64}(undef,n)
 	z = Array{Float64}(undef,n)
-
+	c=0
 	#Substitute back
     for i in 1:n
+		c+=1
         sum = 0.0
         firstNonZeroInRow = convert(Int64,max(l * floor((i - 1) / l) - 1, 1))
         for j in firstNonZeroInRow:i-1
+			c+=1
             sum += A[j,i]*z[j]
         end
         z[i]=b[i]-sum
@@ -313,9 +284,11 @@ function solveLU(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vecto
 
     #Substitute forward
     for i in n:-1:1
+		c+=1
         sum = 0.0
         lastNonZeroInRow = convert(Int64,min(i+l,n))
         for j in i+1 : lastNonZeroInRow
+			c+=1
             sum += A[j,i]* x[j]
         end
         x[i]=(z[i]-sum)/A[i,i]
@@ -326,12 +299,14 @@ end
 function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64}, b::Vector{Float64},p::Vector{Int64})
 	x = Array{Float64}(undef,n)
 	z = Array{Float64}(undef,n)
-
+	c=0
 	#Substitute back
     for i in 1:n
         sum = 0.0
+		c+=1
         firstNonZeroInRow =  convert(Int64, max(l * floor((i-1) / l) - 1, 1))
         for j in firstNonZeroInRow : i-1
+			c+=1
             sum += A[j,p[i]]*z[j]
         end
         z[i]=b[p[i]]-sum
@@ -340,8 +315,10 @@ function solveLUWithPivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64,Int64},
     #Substitute forward
     for i in n:-1:1
         sum = 0.0
+		c+=1
         lastNonZeroInRow = convert(Int64, min(2*l + l*floor((i+1)/l), n))
         for j in i+1 : lastNonZeroInRow
+			c+=1
             sum += A[j,p[i]]*x[j]
         end
         x[i]=(z[i]-sum)/A[i,p[i]]
@@ -356,8 +333,7 @@ end
 
 function LUpivot(n::Int64, l::Int64, A::SparseMatrixCSC{Float64, Int64}, b::Vector{Float64})
 	p = decompositeMatrixWithPivot(n,l,A)
-	solveLUWithPivot(n,l,A,b,p)
-end
-
+	 solveLUWithPivot(n,l,A,b,p)
 
 end
+end #blocksys

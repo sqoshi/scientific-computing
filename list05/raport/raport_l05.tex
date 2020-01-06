@@ -138,19 +138,20 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
 \hline
 \end{tabular}
 \subsection{Porównanie złożoności czasowych}
-\begin{tabular}{|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|}
  \hline
-  n & Gauss & GaussWithPivot & LU & LUWithPivot \\
+  n & Gauss & GaussWithPivot & LU & LUWithPivot & (A,b) \\
  \hline
-
 \hline
- 1000 & 0.001832316  &  0.002586071 & 0.002002504  & 0.007397194  \\
+ 16 & 4.3926e-5  &  8.5171e-5 & 8.8313e-5  & 8.9189e-5 & 0.000228474 \\
 \hline
- 5000 &   0.028314322 & 0.030649873  &  0.028153167 & 0.087562782  \\
+ 1000 & 0.000359821  &  0.001219691 & 0.000452936  & 0.00090019 & 0.001599963 \\
 \hline
- 10000 & 0.127289973 & 0.143771038  & 0.129024203 & 0.369629081   \\
+ 5000 &   0.001806081 & 0.00462489  &  0.002493462 & 0.004496115 & 0.009695742 \\
 \hline
- 25000 &  1.122852877 &  0.923107817  & 1.247497774 & 1.10793138   \\
+ 10000 & 0.00335464 & 0.008400862  & 0.004315859 & 0.00888694  & 0.01651551\\
+\hline
+ 25000 &  0.009508651 &  0.021661168  & 0.010581811 & 0.022701157  & 0.059400061\\
 \hline
 \end{tabular}
 \subsection{Porównanie złożoności pamięciowych}
@@ -170,16 +171,18 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
 \hline
 \end{tabular}
 \subsection{Wykresy}
-\begin{figure}[H]
 \centering
+\begin{figure}[H]
   \begin{minipage}[b]{.45\textwidth}
     \centering
     \includegraphics[width=.8\linewidth]{stand_time_size.png}
-    \caption{Porównanie złożoności czasowej dla GaussianElimination standardowej i zmodyfkiowanej.}
+    \caption{Porównanie złożoności czasowej dla standardowej metody eliminacji Gauss'a i uwzględniającą postać macierzy.}
   \end{minipage}
-\end{figure}
-\centering
-\begin{figure}[]
+    \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{all_comparisions_size.png}
+    \caption{Porównanie liczby porównań dla każdego algorytmu.}
+  \end{minipage}
   \begin{minipage}[b]{.45\textwidth}
     \centering
     \includegraphics[width=.8\linewidth]{gauss_memory_size.png}
@@ -200,6 +203,8 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
     \includegraphics[width=.8\linewidth]{LU_time_size.png}
     \caption{Porównanie złożoności czasowej dla  LU z i bez pivot.}
   \end{minipage}
+  \end{figure}
+\begin{figure}[H]
   \begin{minipage}[b]{.45\textwidth}
     \centering
     \includegraphics[width=.8\linewidth]{GAUSSxLU_memory_size.png}
@@ -210,7 +215,7 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
     \includegraphics[width=.8\linewidth]{GAUSSxLU_time_size.png}
     \caption{Porównanie złożoności czasowej dla GaussianElimination i LU.}
   \end{minipage}
-  \end{figure}
+\end{figure}
 \begin{figure}[H]
     \begin{minipage}[b]{.45\textwidth}
     \centering
@@ -222,13 +227,38 @@ Do sprawdzenia poprawności zaimplementowanych metod utworzono funkcję computeR
     \includegraphics[width=.8\linewidth]{GAUSSxLUpivoted_time_size.png}
     \caption{Porównanie złożoności czasowej dla GaussianElimination i LU z pivot.}
   \end{minipage}
+  \centering
+  \begin{minipage}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{all_memory_size.png}
+    \caption{Porównanie złożoności pamięciowej dla wszystkich z algorytmów.}
+  \end{minipage}
 \end{figure}
-\newpage
 \begin{flushleft}
+\newpage
 \section{Wnioski}
-Jak widać w tabeli 4.1 błędy są rzędu $~ 10^{-15}$, tak więc algorytmy można uznać za poprawne.  Warto zwrócić uwagę na to, że w każdym przypadku aglorytm wykorzystujący częściowy wybór elementu głównego osiąga mniejszy błąd względny, a co za tym idzie bardziej precyzyjny. 
-\\W tabeli 4.2 natomiast przedstawiłem porównanie złożoności czasowych dla wszystkich algorytmów. W tym przypadku algorytmy wykorzystujące pivot okazały się nieco bardziej czasochłonne, wynika to z wyszukiwania maksymalnego elementu w każdej kolumnie.
-\\ W tabeli 4.3 przedstawione zostały złożoności pamięciowe dla utworzonych algorytmów. Jak widać algorytmy wykorzystujące pivot są nieznacznie bardziej złożone pod tym względem, różnica mimo wszystko jest naprawde niezauważalna. Natomiat względem zwykłego dzielenia zaoszczędziliśmy około 1500\% pamięci.
+Jak widać w tabeli 4.1 błędy są rzędu $~ 10^{-15}$, tak więc algorytmy można uznać za poprawne.  Warto zwrócić uwagę na to, że w każdym przypadku aglorytm wykorzystujący częściowy wybór elementu głównego osiąga mniejszy błąd względny, zatem jest bardziej precyzyjny. 
+\\
+W tabeli 4.2 natomiast przedstawiłem porównanie złożoności czasowych dla wszystkich algorytmów. W tym przypadku algorytmy wykorzystujące pivot okazały się nieco bardziej czasochłonne, wynika to z wyszukiwania maksymalnego elementu w każdej kolumnie.
+\\ W tabeli 4.3 przedstawione zostały złożoności pamięciowe dla utworzonych algorytmów. Jak widać algorytmy wykorzystujące pivot są nieznacznie bardziej złożone pod tym względem, różnica mimo wszystko jest naprawde niezauważalna. Natomiat względem zwykłego dzielenia zaoszczędziliśmy około 1500\% pamięci.\\\ 
+\bigskip
+\\
+Przejdę teraz do analizy przedstawionych wykresów.
+
+\paragraph{Figure 1}
+Wykres pozwala porównać złożoność pamięciową dla eliminacji Gauss'a uwzgledniającą postać macierzy i standardową. Wykres jest mocno ograniczony, ponieważ dla kolejnych rozmiarów n, czas obliczeń również wzrastał sześciennie. Jak widać modyfikacja algorytmu pozwoliła osiągnąć złożoność pamieciową liniową z sześciennej.
+\paragraph{Figure 2}
+Wykres ten przedstawia ilość wykonywanych porównań dla każdego z algorytmów. Jak widać z godnie z poprzednią analizą Najmniej porównań wykonuje eliminacja Gaussa bez pivota, kolejna jest metoda rozkładu LU, na 3 pozycji znalazł się się Gauss z częściowym wyborem elementu głownego ze względu na wyszukiwanie elementu maksymalnego, a ostatni analogicznie jest rozkład LU z pivotem.
+\paragraph{Figure 4}
+Ze względu na wyszukiwanie maksymalnego elementu w każdej kolumnie eliminacja Gauss'a jest rzeczjasna bardziej czasochłonna. Przez co algorytm wykrozystujący pivot staje się gorszy pod względem czasowym.
+\paragraph{Figure 6}
+Dla algorytmu LU z i bez pivot analogicznie jak dla eliminacji Gauss'a algorytm wykorzustujący pivot jest stanowczo wolniejszy, gorszy od rozkładu LU bez wyboru elementu głownego.
+\paragraph{Figure 8}
+Algorytm bez wyboru elementu głownego dla rozkładu LU i eliminacji Gaussa'a w przypadku mnożenia losowej(generated: matrixgen.blokmat) macierzy przez wektor RSV wyznacznego przez funkcję $cmputeRSV$ ma niemalże taką samą złożoność czasową.
+\paragraph{Figure 10}
+W przypadku wykorzystania elementu głównego dla sytaucji z paragrafu Figure 8 algorytm rozkładu Lu okazauje się znacznie szybszy.
+\paragraph{Figure 11}
+Wszystkie pozostałe wykresy pokazują zależności ich złożoność pamięciowej. Jednak To wykres nr 11 grupuje je wszystkie. Można zauważyć, że Gauss bez pivota jest w tym przypadku najbardziej oszczędny. Na drugim miejscu egzekwo znalazł się rozkład LU bez pivot oraz Gauss z pivot, Gauss z pivot znalazł się tutaj ze względu na tablicę permutacji p, natomiast LU bez pivot przechowuje mnożniki z. Ostatni, a więc najbarardziej "pamięciożerny" jest z prostych przyczyn LU z pivotem. Zapamiętuje on tablicę permutacji p oraz mnożniki z co czynni go najbardziej kosztownym.
 \end{flushleft}
 \end{flushleft}
 \end{document}
