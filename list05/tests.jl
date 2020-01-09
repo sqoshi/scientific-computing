@@ -117,10 +117,12 @@ function test()
             b = blocksys.computeRSV(n, l, A)
             b1 = deepcopy(b)
             b2 = deepcopy(b)
+
             blocksys.gaussianEliminationWithPivot(n, l, A1,b1)
             blocksys.LUpivot(n,l,A2,b2)
             sparse(A1)
             sparse(A2)
+
             a = @timed blocksys.gaussianEliminationWithPivot(n, l, A1,b1)
             a1 = @timed blocksys.LUpivot(n,l,A2,b2)
             time += a[2]
@@ -182,8 +184,8 @@ function t()
             b1 = deepcopy(shuffle(b))
             b2 = deepcopy(b1)
 
-            #blocksys.gaussianElimination(n, l, A1,b1)
-        #    blocksys.LU(n,l,A2,b2)
+            blocksys.gaussianElimination(n, l, A1,b1)
+            blocksys.LU(n,l,A2,b2)
 
             a = @timed blocksys.gaussianElimination(n, l, A1,b1)
             a1 = @timed blocksys.LU(n,l,A2,b2)
@@ -207,11 +209,11 @@ function t()
     end
     plot(x, y, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
     plot!(x, y1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUB_time_size.png")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivB_time_size.png")
 
     plot(x, m, color="red",seriestype=:scatter, linewidth=1.0, label="gauss")
     plot!(x, m1, color="blue",seriestype=:scatter, linewidth=1.0, label="lu")
-    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUB_memory_size.png")
+    png("/home/piotr/Documents/scientific-computing/list05/plots/GAUSSxLUpivB_memory_size.png")
 
 end
 
