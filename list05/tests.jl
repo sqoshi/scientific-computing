@@ -86,8 +86,6 @@ function test_comparisions()
 end
 test_comparisions()
 
-
-
 function test()
     rozmiar = 20
     repeat = 10
@@ -227,10 +225,10 @@ block_size = 4
 sizes1 = [16, 10000]
 gen_sizes = [1000, 5000, 25000]
 function compare_error(sizes::Array{Int64})
-    for size in sizes
+#    for size in sizes
         # Tests on given matrices
-        #n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data$size/A.txt")
-        n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/generated/$size/A.txt")
+        n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/Data/Data50000/A.txt")
+        #n,l,A = blocksys.getMatrix("/home/piotr/Documents/scientific-computing/list05/generated/$size/A.txt")
         b = blocksys.computeRSV(n, l, A)
         x = ones(Float64, n)
         Ap, bp = deepcopy(A), deepcopy(b)
@@ -241,20 +239,22 @@ function compare_error(sizes::Array{Int64})
 
         result = @timed \(A, b)
 
-        gauss = @timed blocksys.gaussianElimination(n, l, Ad, bd)
-        pivoted = @timed blocksys.gaussianEliminationWithPivot(n, l, Ap, bp)
+        gauss = @timed blocksys.LUpivot(n, l, Ad, bd)
 
-        LU = @timed blocksys.LU(n,l,Al,bl)
-        LUp = @timed blocksys.LUpivot(n,l,Alu,blu)
+    #    pivoted = @timed blocksys.gaussianEliminationWithPivot(n, l, Ap, bp)
 
+        #LU = @timed blocksys.LU(n,l,Al,bl)
+    #    LUp = @timed blocksys.LUpivot(n,l,Alu,blu)
 
+        blocksys.save("/home/piotr/Documents/scientific-computing/list05/Data/Data50000/x.txt",gauss[1],n)
         println("----------------------------------------------------------------------------------------------------\n")
         println("-----------------------------------------Gauss-----------------------------------------------------------\n")
-        println("//$n & $(norm(x - gauss[1]) / norm(gauss[1])) & $(norm(x - pivoted[1]) / norm(pivoted[1])) \\\\")
+        println("//$n & $(norm(x - gauss[1]) / norm(gauss[1]))\\\\")
         println("-----------------------------------------LU-----------------------------------------------------------\n")
-        println("//$n & $(norm(x - LU[1]) / norm(LU[1])) & $(norm(x - LUp[1]) / norm(LUp[1])) \\\\")
+        #println("//$n & $(norm(x - LU[1]) / norm(LU[1])) & $(norm(x - LUp[1]) / norm(LUp[1])) \\\\")
         println("----------------------------------------------------------------------------------------------------\n")
-    end
+
+    #end
 end
 
 compare_error(gen_sizes)

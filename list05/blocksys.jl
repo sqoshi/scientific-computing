@@ -4,6 +4,7 @@ __precompile__()
 module blocksys
 using SparseArrays
 export getVec,getMatrix,save,calculateVecb,gaussianElimination
+using LinearAlgebra
 """
 Function loads Vector b from file file to program's memory.
 When loop face end of data program return current data.
@@ -56,7 +57,7 @@ It's need the length on the file, meaining count of lines.
 At first line prints realtive error rerr.
 """
 function save(file::String,x::Vector{Float64},n::Int64)
-    open(file,"x.txt") do f
+    open("/home/piotr/Documents/scientific-computing/list05/Data/Data50000/x.txt","w") do f
             rerr = norm(ones(n)-x)/norm(x)
             println(f,rerr)
         for i in 1:n
